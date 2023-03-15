@@ -1,5 +1,5 @@
 import {IoIosPeople} from "react-icons/io"
-import avatar from "../images/icons/avatar.svg"
+import avatar from "../public/images/icons/avatar.svg"
 import {Link} from "react-router-dom";
 
 function Header() {
