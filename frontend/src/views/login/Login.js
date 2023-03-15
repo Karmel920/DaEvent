@@ -21,15 +21,15 @@ function Login() {
                             labelProps={{ style: { color: '#b2bdbd' } }}
                             placeholder="Enter your login"
                             label="Login"
-                            radius="lg"
+                            radius="sm"
                         />
                         <TextInput
                             labelProps={{ style: { color: '#b2bdbd' } }}
                             placeholder="Enter your password"
                             label="Password"
-                            radius="lg"
+                            radius="sm"
                         />
-                        <Button radius="lg" size="md" color="color-main.3"
+                        <Button radius="sm" size="md" color="color-main.3"
                                 type={"submit"}
                                 mt={30}
                                 mb={0}
