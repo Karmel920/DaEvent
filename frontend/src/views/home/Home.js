@@ -1,24 +1,31 @@
 import Header from "../../layout/Header";
-import Topics from "./components/Topics";
-import Activities from "./components/Activities";
+import Topics from "../../components/Topics";
+import Activities from "../../components/Activities";
+import ProjectsListHeader from "./components/ProjectsListHeader";
+import Feed from "../../components/Feed";
+import {Grid} from "@mantine/core";
+import Container from "../../layout/Container";
 
 function Home() {
     return (
         <>
-            <div>
+            <div className="">
                 <Header/>
             </div>
-            <div className="flex justify-between mx-16">
-                <div className="">
-                    <Topics/>
-                </div>
-                <div>
-                    <h1 className="text-3xl text-color-light">Feed section</h1>
-                </div>
-                <div>
-                    <Activities/>
-                </div>
-            </div>
+            <Container>
+                <Grid gutter="xl" pt={50} mx={10}>
+                    <Grid.Col span={2}>
+                        <Topics/>
+                    </Grid.Col>
+                    <Grid.Col span={7}>
+                        <ProjectsListHeader/>
+                        <Feed/>
+                    </Grid.Col>
+                    <Grid.Col span={3}>
+                        <Activities/>
+                    </Grid.Col>
+                </Grid>
+            </Container>
         </>
     );
 }
