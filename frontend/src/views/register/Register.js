@@ -5,10 +5,7 @@ import {Link} from "react-router-dom";
 function Register() {
     return (
         <>
-            <div>
-                <Header />
-            </div>
-            <div className="mx-auto mt-[5vh] max-w-md shadow-lg bg-color-dark rounded-lg h-[80vh]">
+            <div className="mx-auto mt-[10vh] max-w-md shadow-lg bg-color-dark rounded-lg h-[80vh]">
                 <div className="bg-color-dark-light w-full px-8 flex justify-center text-color-light py-3 rounded-t-lg">
                     REGISTER
                 </div>
