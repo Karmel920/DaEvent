@@ -1,9 +1,3 @@
-import Header from "./Header";
-import {Grid} from "@mantine/core";
-import Topics from "../components/Topics";
-import ProjectsListHeader from "../views/home/components/ProjectsListHeader";
-import Feed from "../components/Feed";
-import Activities from "../components/Activities";
 
 function Container({children}) {
     return (
