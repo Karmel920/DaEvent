@@ -28,6 +28,28 @@ root.render(
                       'color-success': ['#e3fded', '#bef1d4', '#98e5ba', '#71dba0', '#4ad186', '#31b76c', '#248e54', '#17663b', '#083e22', '#001607'],
                       'color-error': ['#ffe9df', '#ffc5af', '#ffa17f', '#fe7c4e', '#fc581c', '#e33e03', '#b12f01', '#7f2200', '#4e1200', '#200300']
                   },
+                  components: {
+                      TextInput: {
+                          styles: {
+                              input: {
+                                  background: "#3f4156",
+                                  color: "#e5e5e5",
+                                  borderColor: "#696d97",
+                                  borderWidth: "2px"
+                              },
+                          }
+                      },
+                      Textarea: {
+                          styles: {
+                              input: {
+                                  background: "#3f4156",
+                                  color: "#e5e5e5",
+                                  borderColor: "#696d97",
+                                  borderWidth: "2px"
+                              }
+                          }
+                      }
+                  }
               }}>
               <App />
           </MantineProvider>
