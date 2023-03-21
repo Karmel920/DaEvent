@@ -7,6 +7,9 @@ import ProjectForm from "./views/project_form/ProjectForm";
 import Project from "./views/project/Project";
 import DeleteForm from "./views/delete_form/DeleteForm";
 import UpdateUser from "./views/update-user/UpdateUser";
+import TopicsList from "./views/topics_list/TopicsList";
+import Settings from "./views/settings/Settings";
+import UpdatePassword from "./views/update_password/UpdatePassword";
 
 function App() {
   return (
@@ -18,7 +21,10 @@ function App() {
         <Route path='/create-project' element={<ProjectForm/>} />
         <Route path='/project' element={<Project/>} />
         <Route path='/delete' element={<DeleteForm/>} />
+        <Route path='/topics' element={<TopicsList/>} />
+        <Route path='/settings' element={<Settings/>} />
         <Route path='/update-user' element={<UpdateUser/>} />
+        <Route path='/update-password' element={<UpdatePassword/>} />
       </Routes>
   );
 }
