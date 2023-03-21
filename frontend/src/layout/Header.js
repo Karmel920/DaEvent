@@ -1,11 +1,21 @@
 import {IoIosPeople} from "react-icons/io"
 import avatar from "../public/images/icons/avatar.svg"
 import {Link} from "react-router-dom";
-import {Avatar, TextInput} from "@mantine/core";
+import {Avatar, Button, createStyles, Menu, TextInput} from "@mantine/core";
 import {BsChevronDown} from "react-icons/bs";
 import {AiOutlineSearch} from "react-icons/ai";
+import {IoLogOutOutline, IoSettingsOutline} from "react-icons/io5";
+
+const useStyles = createStyles((theme) => ({
+    menu: {
+        '&:hover': {
+            backgroundColor: "#51546e",
+        },
+    },
+}));
 
 function Header() {
+    const { classes } = useStyles();
     return (
         <div className="bg-color-dark w-full fixed">
             <div className="w-11/12 max-w-[1440px] flex justify-between mx-auto px-6 pb-3 pt-5">
@@ -37,14 +47,36 @@ function Header() {
                                 }}
                         />
                     </Link>
-                    {/*<Link to='/login'>*/}
-                    {/*    <p className="text-color-gray cursor-pointer">Login</p>*/}
-                    {/*</Link>*/}
                     <div>
                         <p className="text-color-gray cursor-pointer">Karmel</p>
-                        <p className="text-color-main cursor-pointer">@Karmel</p>
+                        <Link to='/profile'>
+                            <p className="text-color-main cursor-pointer">@Karmel</p>
+                        </Link>
                     </div>
-                    <BsChevronDown className="cursor-pointer text-color-gray hover:text-color-main"/>
+                    <Menu width={200} shadow="md" position="bottom">
+                        <Menu.Target>
+                            <Button rightIcon={<BsChevronDown className="mt-1"/>}
+                                    color="color-main.3"
+                                    styles={{root: {color: "#2d2d39", borderWidth: "0px"}}}
+                            >
+                                Menu
+                            </Button>
+                        </Menu.Target>
+                        <Menu.Dropdown>
+                            <Menu.Item component="a" href="/settings" className={classes.menu}>
+                                <div className="flex items-center gap-2">
+                                    <IoSettingsOutline/>
+                                    Settings
+                                </div>
+                            </Menu.Item>
+                            <Menu.Item className={classes.menu}>
+                                <div className="flex items-center gap-2">
+                                    <IoLogOutOutline/>
+                                    Logout
+                                </div>
+                            </Menu.Item>
+                        </Menu.Dropdown>
+                    </Menu>
                 </div>
             </div>
         </div>
