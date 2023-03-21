@@ -17,14 +17,12 @@ function FormContainer() {
                 <div className="layout__body">
                     <form className="flex flex-col p-3 py-5 gap-3 justify-center">
                         <TextInput
-                            labelProps={{style: {color: '#b2bdbd'}}}
                             label="Enter Project Topic"
                             radius="sm"
                             px={10}
                             mb={10}
                         />
                         <TextInput
-                            labelProps={{style: {color: '#b2bdbd'}}}
                             label="Project Name"
                             radius="sm"
                             px={10}

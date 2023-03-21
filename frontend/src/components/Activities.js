@@ -26,7 +26,7 @@ function Activities() {
                         <span className="text-color-gray cursor-default text-xs">2 hours, 54 minutes ago</span>
                     </div>
                 </div>
-                <div className="activities-boxContent text-color-light-gray">
+                <div className="text-color-light-gray">
                     <p>commented on "
                         <Link to='/project'>
                             <span className="text-color-main cursor-pointer">Python Project</span>

@@ -1,10 +1,9 @@
 import avatar from "../../../public/images/icons/avatar.svg"
-import {Avatar, Button, Textarea, TextInput} from "@mantine/core";
+import {Avatar, Button, TextInput} from "@mantine/core";
 import {Link} from "react-router-dom";
 import {IoMdArrowBack, IoMdClose} from "react-icons/io";
 import {AiOutlineEdit} from "react-icons/ai";
 import {BsPersonAdd} from "react-icons/bs";
-import {MdAdd} from "react-icons/md";
 
 function ProjectContainer() {
     return (
@@ -22,7 +21,9 @@ function ProjectContainer() {
                             <Link to='/create-project'>
                                 <AiOutlineEdit className="text-color-light-gray text-xl cursor-pointer"/>
                             </Link>
-                            <IoMdClose className="text-color-light-gray text-xl cursor-pointer"/>
+                            <Link to='/delete'>
+                                <IoMdClose className="text-color-light-gray text-xl cursor-pointer"/>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -43,12 +44,14 @@ function ProjectContainer() {
                     <div>
                         <p className="text-xs text-color-gray mb-1">HOSTED BY</p>
                         <div className="flex leading-normal items-center">
-                            <Avatar src={avatar} alt="Avatar"
-                                    sx={{
-                                        'cursor': "pointer", 'position': "static"
-                                    }}
-                            />
-                            <p className="pl-3 text-sm text-color-main">@Karmel</p>
+                            <Link to="/profile" className="flex items-center">
+                                <Avatar src={avatar} alt="Avatar"
+                                        sx={{
+                                            'cursor': "pointer", 'position': "static"
+                                        }}
+                                />
+                                <p className="pl-3 text-sm text-color-main cursor-pointer">@Karmel</p>
+                            </Link>
                         </div>
                     </div>
                     <div className="h-32 overflow-auto mb-2">
@@ -84,7 +87,9 @@ function ProjectContainer() {
                                                 <p className="ml-3 text-sm text-color-light-gray">40 minutes ago</p>
                                             </div>
                                             <div>
-                                                <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                <Link to='/delete'>
+                                                    <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                </Link>
                                             </div>
                                         </div>
                                         <p className="text-color-light-gray">Siema</p>
@@ -105,7 +110,9 @@ function ProjectContainer() {
                                                 <p className="ml-3 text-sm text-color-light-gray">40 minutes ago</p>
                                             </div>
                                             <div>
-                                                <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                <Link to='/delete'>
+                                                    <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                </Link>
                                             </div>
                                         </div>
                                         <p className="text-color-light-gray">Siema</p>
@@ -126,7 +133,9 @@ function ProjectContainer() {
                                                 <p className="ml-3 text-sm text-color-light-gray">40 minutes ago</p>
                                             </div>
                                             <div>
-                                                <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                <Link to='/delete'>
+                                                    <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                </Link>
                                             </div>
                                         </div>
                                         <p className="text-color-light-gray">Siema</p>
@@ -147,7 +156,9 @@ function ProjectContainer() {
                                                 <p className="ml-3 text-sm text-color-light-gray">40 minutes ago</p>
                                             </div>
                                             <div>
-                                                <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                <Link to='/delete'>
+                                                    <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                </Link>
                                             </div>
                                         </div>
                                         <p className="text-color-light-gray">Siema</p>

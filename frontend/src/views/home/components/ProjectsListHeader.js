@@ -1,5 +1,5 @@
 import {MdAdd} from "react-icons/md";
-import {Button, ThemeIcon} from "@mantine/core";
+import {Button} from "@mantine/core";
 import {Link} from "react-router-dom";
 
 function ProjectsListHeader() {

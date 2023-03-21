@@ -15,19 +15,12 @@ function ProfileBio() {
             <div className="items-center flex flex-col text-color-light">
                 <h3>Mikolaj Petecki</h3>
                 <p className="text-color-main">@Karmel</p>
-                <Button radius="sm" size="md" color="color-main.4"
-                        mt={10}
-                        sx={{
-                            'position': "static",
-                        }}>
-                    Edit Profile
-                </Button>
             </div>
-            <div className="profile__about mb-10">
+            <div className="mb-10">
                 <h2 className="text-lg text-color-dark-light">ABOUT</h2>
                 <p className="text-color-light-gray">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
-            <div class="roomList__header">
+            <div class="">
                 <div>
                     <h2 className="text-lg text-color-dark-light mb-2">PROJECTS CREATED BY KARMEL</h2>
                 </div>

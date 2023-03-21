@@ -1,4 +1,4 @@
-import {Button, Textarea, TextInput} from "@mantine/core";
+import {Button} from "@mantine/core";
 import {Link} from "react-router-dom";
 import {IoMdArrowBack} from "react-icons/io";
 

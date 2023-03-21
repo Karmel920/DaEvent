@@ -19,7 +19,7 @@ function Participants() {
                         />
                         <div className="flex-col pl-3">
                             <p className="text-sm text-color-light-gray">Mikolaj Petecki</p>
-                            <p className="text-sm text-color-main">@Karmel</p>
+                            <p className="text-sm text-color-main cursor-pointer">@Karmel</p>
                         </div>
                     </div>
                     <div className="flex leading-normal items-center">
@@ -30,7 +30,7 @@ function Participants() {
                         />
                         <div className="flex-col pl-3">
                             <p className="text-sm text-color-light-gray">Kamil Slimak</p>
-                            <p className="text-sm text-color-main">@kajak</p>
+                            <p className="text-sm text-color-main cursor-pointer">@kajak</p>
                         </div>
                     </div>
                     <div className="flex leading-normal items-center">
@@ -41,7 +41,7 @@ function Participants() {
                         />
                         <div className="flex-col pl-3">
                             <p className="text-sm text-color-light-gray">Jas Wedrowiec</p>
-                            <p className="text-sm text-color-main">@johnnie_walker</p>
+                            <p className="text-sm text-color-main cursor-pointer">@johnnie_walker</p>
                         </div>
                     </div>
                 </div>

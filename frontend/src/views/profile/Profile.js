@@ -1,4 +1,4 @@
-import {Avatar, Grid} from "@mantine/core";
+import {Grid} from "@mantine/core";
 import Header from "../../layout/Header";
 import Container from "../../layout/Container";
 import Topics from "../../components/Topics";
