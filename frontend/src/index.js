@@ -37,6 +37,9 @@ root.render(
                                   borderColor: "#696d97",
                                   borderWidth: "2px"
                               },
+                              label: {
+                                  color: '#b2bdbd'
+                              }
                           }
                       },
                       Textarea: {
@@ -45,7 +48,25 @@ root.render(
                                   background: "#3f4156",
                                   color: "#e5e5e5",
                                   borderColor: "#696d97",
-                                  borderWidth: "2px"
+                                  borderWidth: "2px",
+                              },
+                              label: {
+                                  color: '#b2bdbd'
+                              }
+                          }
+                      },
+                      Menu: {
+                          styles: {
+                              dropdown: {
+                                  background: "#696d97",
+                                  borderWidth: "0px",
+                              },
+                              item: {
+                                  color: "#e5e5e5",
+                                  borderTop: "solid",
+                                  borderBottom: "solid",
+                                  borderWidth: "1px",
+                                  borderRadius: "0px"
                               }
                           }
                       }
