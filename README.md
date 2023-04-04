@@ -1,20 +1,24 @@
-# daevent
+# Daevent
+
+## Table of Contents
+* [General Info](#general-information)
+* [Technologies Used](#technologies-used)
+<!-- * [Features](#features) -->
+<!-- * [Screenshots](#screenshots) -->
+<!-- * [Usage](#usage) -->
+<!-- * [Project Status](#project-status) -->
+<!-- * [Contact](#contact) -->
+<!-- * [License](#license) -->
 
 
-### backend:
-* `cd daevent`
-* `pip install virtualenv`
-* `virtualenv envname`
-* `envname\scripts\activate`
-* `pip install -r requirements.txt`
-
-to run:
-* `python manage.py runserver`
+## General Information
+- Social application for sharing projects, creating teams and communicating
+<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
-### frontend:
-* `cd daevent\frontend`
-* `npm install`
-
-to run:
-* `npm start`
+## Technologies Used
+- React
+- Python
+- Django REST framework
+- PostgreSQL - version 14.1
+- Docker - version 4.12
