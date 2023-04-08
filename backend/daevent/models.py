@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     # avatar = models.ImageField(null=True, default="avatar.svg")
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['email', 'username']
 
     def __str__(self):
         return f"{self.email}"
@@ -28,7 +28,6 @@ class Project(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     participants = models.ManyToManyField(CustomUser, related_name='participants', blank=True)
-    # likes = models.PositiveIntegerField(default=0)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
