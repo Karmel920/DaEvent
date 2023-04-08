@@ -18,8 +18,8 @@ function Login() {
                 <div className="px-8">
                     <form className="flex flex-col p-3 py-5 gap-3 justify-center">
                         <TextInput
-                            placeholder="Enter your login"
-                            label="Login"
+                            placeholder="Enter your email"
+                            label="Email"
                             radius="sm"
                         />
                         <TextInput

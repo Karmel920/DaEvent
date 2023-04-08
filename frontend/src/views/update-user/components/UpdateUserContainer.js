@@ -30,7 +30,13 @@ function UpdateUserContainer() {
                             mb={10}
                         />
                         <TextInput
-                            label="Name"
+                            label="Full Name"
+                            radius="sm"
+                            px={10}
+                            mb={10}
+                        />
+                        <TextInput
+                            label="Username"
                             radius="sm"
                             px={10}
                             mb={10}

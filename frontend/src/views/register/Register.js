@@ -18,19 +18,27 @@ function Register() {
                 <div className="px-8">
                     <form className="flex flex-col p-3 py-5 gap-3 justify-center">
                         <TextInput
-                            placeholder="Enter your login"
-                            label="Login"
+                            placeholder="Enter your email"
+                            label="Email"
+                            radius="sm"
+                            type={"email"}
+                        />
+                        <TextInput
+                            placeholder="Enter your username"
+                            label="Username"
                             radius="sm"
                         />
                         <TextInput
                             placeholder="Enter your password"
                             label="Password"
                             radius="sm"
+                            type={"password"}
                         />
                         <TextInput
                             placeholder="Confirm your password"
                             label="Password confirmation"
                             radius="sm"
+                            type={"password"}
                         />
                         <Button radius="sm" size="md" color="color-main.4"
                                 type={"submit"}
