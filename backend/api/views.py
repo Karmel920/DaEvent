@@ -3,11 +3,31 @@ from rest_framework.decorators import api_view
 from daevent.models import Topic, Project, Message
 from .serializers import TopicSerializer, ProjectSerializer
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+
+        return token
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
 
 @api_view(['GET'])
 def getRoutes(request):
     routes = [
         'GET /api',
+        'GET /api/token',
+        'GET /api/token/refresh',
         'GET /api/topics',
         'GET /api/add-topics',
         'GET /api/projects',
