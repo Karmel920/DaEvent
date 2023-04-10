@@ -21,11 +21,13 @@ function Login() {
                             placeholder="Enter your email"
                             label="Email"
                             radius="sm"
+                            type={"email"}
                         />
                         <TextInput
                             placeholder="Enter your password"
                             label="Password"
                             radius="sm"
+                            type={"password"}
                         />
                         <Button radius="sm" size="md" color="color-main.4"
                                 type={"submit"}
