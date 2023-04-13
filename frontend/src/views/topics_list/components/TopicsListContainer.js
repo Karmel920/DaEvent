@@ -2,8 +2,21 @@ import {TextInput} from "@mantine/core";
 import {Link} from "react-router-dom";
 import {IoMdArrowBack} from "react-icons/io";
 import {AiOutlineSearch} from "react-icons/ai";
+import {useMutation} from "react-query";
+import {api} from "../../../api/ApiServices";
+import {useEffect, useState} from "react";
 
 function TopicsListContainer() {
+    const [topics, setTopics] = useState([]);
+
+    useEffect(() => {topicsMutation.mutate()}, []);
+
+    const topicsMutation = useMutation(api.topics, {
+        onSuccess: ({data}) => setTopics(data),
+    });
+
+    console.log(topics);
+
     return (
         <div className="pt-10">
             <div className="h-[80vh] w-10/12 rounded-lg bg-color-dark mx-auto overflow-auto">
@@ -30,27 +43,33 @@ function TopicsListContainer() {
                         <li className="flex justify-between text-color-main border-solid border-b border-color-gray">
                             <span className="cursor-pointer pb-4">All</span> <span className="bg-color-dark px-1.5 py-0.5">13</span>
                         </li>
-                        <li className="flex justify-between border-solid border-b border-color-gray">
-                            <span className="hover:text-color-main cursor-pointer pb-4">Python</span> <span className="bg-color-dark px-1.5 py-0.5">15</span>
-                        </li>
-                        <li className="flex justify-between border-solid border-b border-color-gray">
-                            <span className="hover:text-color-main cursor-pointer pb-4">Ruby</span> <span className="bg-color-dark px-1.5 py-0.5">4</span>
-                        </li>
-                        <li className="flex justify-between border-solid border-b border-color-gray">
-                            <span className="hover:text-color-main cursor-pointer pb-4">React</span> <span className="bg-color-dark px-1.5 py-0.5">2</span>
-                        </li>
-                        <li className="flex justify-between border-solid border-b border-color-gray">
-                            <span className="hover:text-color-main cursor-pointer pb-4">Django</span> <span className="bg-color-dark px-1.5 py-0.5">1</span>
-                        </li>
-                        <li className="flex justify-between border-solid border-b border-color-gray">
-                            <span className="hover:text-color-main cursor-pointer pb-4">Java</span> <span className="bg-color-dark px-1.5 py-0.5">3</span>
-                        </li>
-                        <li className="flex justify-between border-solid border-b border-color-gray">
-                            <span className="hover:text-color-main cursor-pointer pb-4">Go</span> <span className="bg-color-dark px-1.5 py-0.5">7</span>
-                        </li>
-                        <li className="flex justify-between border-solid border-b border-color-gray">
-                            <span className="hover:text-color-main cursor-pointer pb-4">C++</span> <span className="bg-color-dark px-1.5 py-0.5">9</span>
-                        </li>
+                        {topics.map(item =>
+                            <li key={item.id} className="flex justify-between border-solid border-b border-color-gray">
+                                <span className="hover:text-color-main cursor-pointer pb-4">{item.name}</span> <span className="bg-color-dark px-1.5 py-0.5">15</span>
+                            </li>)
+                        }
+
+                        {/*<li className="flex justify-between border-solid border-b border-color-gray">*/}
+                        {/*    <span className="hover:text-color-main cursor-pointer pb-4">Python</span> <span className="bg-color-dark px-1.5 py-0.5">15</span>*/}
+                        {/*</li>*/}
+                        {/*<li className="flex justify-between border-solid border-b border-color-gray">*/}
+                        {/*    <span className="hover:text-color-main cursor-pointer pb-4">Ruby</span> <span className="bg-color-dark px-1.5 py-0.5">4</span>*/}
+                        {/*</li>*/}
+                        {/*<li className="flex justify-between border-solid border-b border-color-gray">*/}
+                        {/*    <span className="hover:text-color-main cursor-pointer pb-4">React</span> <span className="bg-color-dark px-1.5 py-0.5">2</span>*/}
+                        {/*</li>*/}
+                        {/*<li className="flex justify-between border-solid border-b border-color-gray">*/}
+                        {/*    <span className="hover:text-color-main cursor-pointer pb-4">Django</span> <span className="bg-color-dark px-1.5 py-0.5">1</span>*/}
+                        {/*</li>*/}
+                        {/*<li className="flex justify-between border-solid border-b border-color-gray">*/}
+                        {/*    <span className="hover:text-color-main cursor-pointer pb-4">Java</span> <span className="bg-color-dark px-1.5 py-0.5">3</span>*/}
+                        {/*</li>*/}
+                        {/*<li className="flex justify-between border-solid border-b border-color-gray">*/}
+                        {/*    <span className="hover:text-color-main cursor-pointer pb-4">Go</span> <span className="bg-color-dark px-1.5 py-0.5">7</span>*/}
+                        {/*</li>*/}
+                        {/*<li className="flex justify-between border-solid border-b border-color-gray">*/}
+                        {/*    <span className="hover:text-color-main cursor-pointer pb-4">C++</span> <span className="bg-color-dark px-1.5 py-0.5">9</span>*/}
+                        {/*</li>*/}
                     </ul>
                 </div>
             </div>
