@@ -5,6 +5,8 @@ import {Avatar, Button, createStyles, Menu, TextInput} from "@mantine/core";
 import {BsChevronDown} from "react-icons/bs";
 import {AiOutlineSearch} from "react-icons/ai";
 import {IoLogOutOutline, IoSettingsOutline} from "react-icons/io5";
+import {useAuth} from "../context/AuthContext";
+import {useNavigate} from "react-router";
 
 const useStyles = createStyles((theme) => ({
     menu: {
@@ -16,6 +18,16 @@ const useStyles = createStyles((theme) => ({
 
 function Header() {
     const { classes } = useStyles();
+
+    const {logout} = useAuth();
+
+    const navigate = useNavigate();
+
+    const logoutHandle = () => {
+        logout();
+        navigate('/login');
+    }
+
     return (
         <div className="bg-color-dark w-full fixed">
             <div className="w-11/12 max-w-[1440px] flex justify-between mx-auto px-6 pb-3 pt-5">
@@ -70,7 +82,7 @@ function Header() {
                                 </div>
                             </Menu.Item>
                             <Menu.Item className={classes.menu}>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2" onClick={logoutHandle}>
                                     <IoLogOutOutline/>
                                     Logout
                                 </div>
