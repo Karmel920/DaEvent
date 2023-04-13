@@ -2,6 +2,7 @@
 .idea
 
 /backend/.env
+/frontend/.env
 
 # dependencies
 /frontend/node_modules
