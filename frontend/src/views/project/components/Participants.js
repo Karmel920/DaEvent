@@ -1,49 +1,49 @@
 import avatar from "../../../public/images/icons/avatar.svg"
 import {Avatar} from "@mantine/core";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useMutation} from "react-query";
+import {api} from "../../../api/ApiServices";
 
 function Participants() {
+    const {slug} = useParams();
+    const [participants, setParticipants] = useState([]);
+    const [participantsCount, setParticipantsCount] = useState(0);
+
+    useEffect(() => {
+        if (!slug) return;
+        participantsMutation.mutate(slug);
+    }, []);
+
+    const participantsMutation = useMutation(api.getParticipants, {
+        onSuccess: ({data}) => {
+            setParticipants(data.participants);
+            setParticipantsCount(data.participants_count);
+        }
+    });
+
     return (
         <div className="pt-10 h-[90vh]">
             <div className="h-full w-full rounded-lg overflow-hidden bg-color-dark">
                 <div className="bg-color-dark-light rounded-t-md">
                     <h2 className="text-color-light py-2 px-4">PARTICIPANTS
-                        <span className="ml-1.5 text-color-main">(3 Joined)</span>
+                        <span className="ml-1.5 text-color-main">({participantsCount} Joined)</span>
                     </h2>
                 </div>
                 <div className="h-full w-full p-4 flex flex-col gap-4">
-                    <div className="flex leading-normal items-center">
-                        <Avatar src={avatar} alt="Avatar"
-                                sx={{
-                                    'cursor': "pointer", 'position': "static"
-                                }}
-                        />
-                        <div className="flex-col pl-3">
-                            <p className="text-sm text-color-light-gray">Mikolaj Petecki</p>
-                            <p className="text-sm text-color-main cursor-pointer">@Karmel</p>
+                    {participants.map(item =>
+                        <div key={item.id} className="flex leading-normal items-center">
+                            <Avatar src={avatar} alt="Avatar"
+                                    sx={{
+                                        'cursor': "pointer", 'position': "static"
+                                    }}
+                            />
+                            <div className="flex-col pl-3">
+                                <p className="text-sm text-color-light-gray">{item.full_name}</p>
+                                <p className="text-sm text-color-main cursor-pointer">@{item.username}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex leading-normal items-center">
-                        <Avatar src={avatar} alt="Avatar"
-                                sx={{
-                                    'cursor': "pointer", 'position': "static"
-                                }}
-                        />
-                        <div className="flex-col pl-3">
-                            <p className="text-sm text-color-light-gray">Kamil Slimak</p>
-                            <p className="text-sm text-color-main cursor-pointer">@kajak</p>
-                        </div>
-                    </div>
-                    <div className="flex leading-normal items-center">
-                        <Avatar src={avatar} alt="Avatar"
-                                sx={{
-                                    'cursor': "pointer", 'position': "static"
-                                }}
-                        />
-                        <div className="flex-col pl-3">
-                            <p className="text-sm text-color-light-gray">Jas Wedrowiec</p>
-                            <p className="text-sm text-color-main cursor-pointer">@johnnie_walker</p>
-                        </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>
