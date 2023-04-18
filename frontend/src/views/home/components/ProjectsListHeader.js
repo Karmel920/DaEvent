@@ -1,13 +1,15 @@
 import {MdAdd} from "react-icons/md";
 import {Button} from "@mantine/core";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
-function ProjectsListHeader() {
+function ProjectsListHeader({totalProjects}) {
+    const {slug} = useParams();
+
     return (
         <div className="flex justify-between items-center w-full pt-10 mb-5">
             <div className="">
                 <h2 className="text-lg text-color-light">PROJECTS</h2>
-                <p className="text-color-dark-light">5 Projects available</p>
+                <p className="text-color-dark-light">{totalProjects} Projects available {slug}</p>
             </div>
             <Link to='/create-project'>
                 <Button color="color-main.4" radius="md" size="md"
