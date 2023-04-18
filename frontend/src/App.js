@@ -19,13 +19,15 @@ function App() {
         <QueryClientProvider client={queryClient}>
             <Routes>
                 <Route path='/' element={<Home/>}/>
+                <Route path='/projects' element={<Home/>}/>
+                <Route path='/projects/:slug' element={<Home/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/create-project' element={<ProjectForm/>}/>
-                <Route path='/project' element={<Project/>}/>
+                <Route path='/project/:slug' element={<Project/>}/>
                 <Route path='/delete' element={<DeleteForm/>}/>
-                <Route path='/topics' element={<TopicsList/>}/>
+                <Route path='/topics' element={<TopicsList/>}/>S
                 <Route path='/settings' element={<Settings/>}/>
                 <Route path='/update-user' element={<UpdateUser/>}/>
                 <Route path='/update-password' element={<UpdatePassword/>}/>
