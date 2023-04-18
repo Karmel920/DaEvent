@@ -14,7 +14,7 @@ function ProfileBio() {
             </div>
             <div className="items-center flex flex-col text-color-light">
                 <h3>Mikolaj Petecki</h3>
-                <p className="text-color-main">@Karmel</p>
+                <p className="text-color-main cursor-pointer">@Karmel</p>
             </div>
             <div className="mb-10">
                 <h2 className="text-lg text-color-dark-light">ABOUT</h2>
