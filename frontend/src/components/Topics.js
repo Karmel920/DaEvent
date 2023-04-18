@@ -6,14 +6,18 @@ import {api} from "../api/ApiServices";
 
 function Topics() {
     const [topics, setTopics] = useState([]);
+    const [allCount, setAllCount] = useState([]);
 
-    useEffect(() => {topicsMutation.mutate()}, []);
+    useEffect(() => {
+        topicsMutation.mutate()
+    }, []);
 
     const topicsMutation = useMutation(api.topics, {
-        onSuccess: ({data}) => setTopics(data),
+        onSuccess: ({data}) => {
+            setTopics(data.topics);
+            setAllCount(data.all_count)
+        }
     });
-
-    console.log(topics);
 
     return (
         <div className="mt-10">
@@ -22,23 +26,19 @@ function Topics() {
             </div>
             <div className="text-lg flex flex-col gap-5 cursor-pointer mt-8">
                 <ul className="text-color-light-gray flex flex-col gap-6 pr-4 text-sm">
-                    <li className="flex justify-between text-color-main">
-                        <span>All</span> <span className="bg-color-dark px-1.5 py-0.5">13</span>
-                    </li>
+                    <Link to={"/projects?page=1"}>
+                        <li className="flex justify-between text-color-main">
+                            <span>All</span> <span className="bg-color-dark px-1.5 py-0.5">{allCount}</span>
+                        </li>
+                    </Link>
                     {topics.map(item =>
-                        <li key={item.id} className="flex justify-between">
-                            <span className="hover:text-color-main">{item.name}</span> <span className="bg-color-dark px-1.5 py-0.5">15</span>
-                        </li>)
+                        <Link key={item.id} to={`/projects/${item.name}?page=1`}>
+                            <li key={item.id} className="flex justify-between">
+                                <span className="hover:text-color-main">{item.name}</span>
+                                <span className="bg-color-dark px-1.5 py-0.5">{item.topic_projects_count}</span>
+                            </li>
+                        </Link>)
                     }
-                    {/*<li className="flex justify-between">*/}
-                    {/*    <span className="hover:text-color-main">Python</span> <span className="bg-color-dark px-1.5 py-0.5">15</span>*/}
-                    {/*</li>*/}
-                    {/*<li className="flex justify-between">*/}
-                    {/*    <span className="hover:text-color-main">Ruby</span> <span className="bg-color-dark px-1.5 py-0.5">4</span>*/}
-                    {/*</li>*/}
-                    {/*<li className="flex justify-between">*/}
-                    {/*    <span className="hover:text-color-main">React</span> <span className="bg-color-dark px-1.5 py-0.5">2</span>*/}
-                    {/*</li>*/}
                 </ul>
                 <div className="text-sm text-color-main">
                     <Link to='/topics' className="flex items-center">
