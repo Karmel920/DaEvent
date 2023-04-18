@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timesince
 
 
 class CustomUser(AbstractUser):
@@ -12,7 +13,7 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
-        return f"{self.email}"
+        return self.username
 
 
 class Topic(models.Model):
@@ -31,6 +32,10 @@ class Project(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def timesince(self):
+        return timesince.timesince(self.created)
+
     class Meta:
         ordering = ['-updated', '-created']
 
@@ -44,6 +49,10 @@ class Message(models.Model):
     body = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def timesince(self):
+        return timesince.timesince(self.created)
 
     class Meta:
         ordering = ['-updated', '-created']
