@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
@@ -9,8 +10,8 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
-    list_display = ("email", "username", "date_joined", "last_login", "is_staff", "is_active",)
-    list_filter = ("email", "is_staff", "is_active",)
+    list_display = ("id", "email", "username", "date_joined", "last_login", "is_staff", "is_active",)
+    list_filter = ("id", "email", "is_staff", "is_active",)
     readonly_fields = ("date_joined", "last_login")
     fieldsets = (
         (None, {"fields": ("email", "password", "username", "full_name", "bio")}),
@@ -29,7 +30,28 @@ class CustomUserAdmin(UserAdmin):
     ordering = ("email",)
 
 
+class ProjectAdmin(ModelAdmin):
+    list_display = ("id", "name", "topic", "host", "created",)
+    readonly_fields = ("id",)
+    search_fields = ("name", "topic__name", "host_username")
+    ordering = ("name",)
+
+
+class TopicAdmin(ModelAdmin):
+    list_display = ("name",)
+    readonly_fields = ("id",)
+    search_fields = ("name",)
+    ordering = ("name",)
+
+
+class MessageAdmin(ModelAdmin):
+    list_display = ("id", "user", "body", "project", "created",)
+    readonly_fields = ("id",)
+    search_fields = ("user__username", "body", "project__name")
+    ordering = ("project",)
+
+
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Project)
-admin.site.register(Topic)
-admin.site.register(Message)
+admin.site.register(Project, ProjectAdmin)
+admin.site.register(Topic, TopicAdmin)
+admin.site.register(Message, MessageAdmin)
