@@ -30,3 +30,6 @@ services:
       - 3000:3000
     volumes:
       - ./frontend/src:/frontend/src
+    environment:
+      - WATCHPACK_POOLING=true
+      - CHOKIDAR_USEPOLLING=true
