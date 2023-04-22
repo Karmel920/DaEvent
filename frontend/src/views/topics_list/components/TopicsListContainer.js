@@ -51,7 +51,7 @@ function TopicsListContainer() {
                             </li>
                         </Link>
                         {topics.map(item =>
-                            <Link to={`/projects/${item.name}`}>
+                            <Link key={item.id} to={`/projects/${item.name}`}>
                                 <li key={item.id}
                                     className="flex justify-between border-solid border-b border-color-gray">
                                     <span className="hover:text-color-main cursor-pointer pb-4">{item.name}</span>

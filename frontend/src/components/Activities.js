@@ -32,9 +32,9 @@ function Activities() {
                             />
                         </Link>
                         <div className="flex flex-col pl-2">
-                            <Link to="/profile">
+                            <Link to={`/profile/${item.user.id}`}>
                                 <p className="my-auto text-color-main flex flex-col cursor-pointer">
-                                    @{item.user}
+                                    @{item.user.username}
                                 </p>
                             </Link>
                             <span className="text-color-gray cursor-default text-xs">{item.timesince} ago</span>
@@ -42,8 +42,8 @@ function Activities() {
                     </div>
                     <div className="text-color-light-gray">
                         <p>commented on "
-                            <Link to='/project'>
-                                <span className="text-color-main cursor-pointer">{item.project}</span>
+                            <Link to={`/project/${item.project.id}`}>
+                                <span className="text-color-main cursor-pointer">{item.project.name}</span>
                             </Link>
                             "
                         </p>

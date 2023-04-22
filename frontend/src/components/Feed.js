@@ -17,6 +17,7 @@ function Feed({setTotalHandler}) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        setActivePage(searchParams.get('page') || 1);
         if (slug !== prevSlug) {
             setActivePage(1);
             setPrevSlug(slug);
@@ -27,7 +28,7 @@ function Feed({setTotalHandler}) {
         else {
             allProjectsMutation.mutate(activePage);
         }
-    }, [slug, activePage]);
+    }, [slug, activePage, searchParams]);
 
     const allProjectsMutation = useMutation(api.getAllProjects, {
         onSuccess: ({data}) => {
@@ -69,14 +70,14 @@ function Feed({setTotalHandler}) {
             {projects.map(item =>
                 <div key={item.id} className="bg-color-dark p-6 rounded-xl mb-6">
                     <div className="flex justify-between items-center text-color-light">
-                        <Link to="/profile">
+                        <Link to={`/profile/${item.host.id}`}>
                             <div className="flex items-center">
                                 <Avatar src={avatar} alt="Avatar" size="md"
                                         sx={{
                                             'cursor': "pointer", 'position': "static"
                                         }}
                                 />
-                                <span className="text-color-main ml-2 cursor-pointer">@{item.host}</span>
+                                <span className="text-color-main ml-2 cursor-pointer">@{item.host.username}</span>
                             </div>
                         </Link>
                         <div>
