@@ -17,7 +17,7 @@ function ProjectContainer() {
         if (!slug) return;
         projectMutation.mutate(slug);
         activitiesMutation.mutate(slug);
-    }, []);
+    }, [slug]);
 
     const projectMutation = useMutation(api.getProjectById, {
         onSuccess: ({data}) => setProject(data),
@@ -53,13 +53,13 @@ function ProjectContainer() {
                         <div className="flex items-center gap-10">
                             <div>
                                 <p className="text-xs text-color-gray mb-1">NAME</p>
-                                <h3 className="text-3xl text-color-main font-medium">{project.name}</h3>
+                                <h3 className="text-3xl text-color-main font-medium">{project?.name}</h3>
                             </div>
                             <div>
                                 <p className="text-xs text-color-gray mb-1">TOPIC</p>
                                 <div className="flex">
                                     <p className="bg-color-dark-light py-1.5 text-color-light px-4 rounded-3xl">
-                                        {project.topic}
+                                        {project?.topic}
                                     </p>
                                 </div>
                             </div>
@@ -72,20 +72,20 @@ function ProjectContainer() {
                                     }}>
                                 <p className="text-color-dark">Join</p>
                             </Button>
-                            <span className="text-color-light-gray">{project.timesince} ago</span>
+                            <span className="text-color-light-gray">{project?.timesince} ago</span>
                         </div>
                     </div>
                     <div className="flex items-center justify-between pr-10">
                         <div>
                             <p className="text-xs text-color-gray mb-1">HOSTED BY</p>
                             <div className="flex leading-normal items-center">
-                                <Link to="/profile" className="flex items-center">
+                                <Link to={`/profile/${project?.host?.id}`} className="flex items-center">
                                     <Avatar src={avatar} alt="Avatar"
                                             sx={{
                                                 'cursor': "pointer", 'position': "static"
                                             }}
                                     />
-                                    <p className="pl-3 text-sm text-color-main cursor-pointer">@{project.host}</p>
+                                    <p className="pl-3 text-sm text-color-main cursor-pointer">@{project?.host?.username}</p>
                                 </Link>
                             </div>
                         </div>
@@ -93,7 +93,7 @@ function ProjectContainer() {
                     <div className="h-32 overflow-auto mb-2">
                         <p className="text-xs text-color-gray mb-1">DESCRIPTION</p>
                         <div className="text-color-light-gray mb-2">
-                            {project.description}
+                            {project?.description}
                         </div>
                     </div>
                     <div>
@@ -101,28 +101,29 @@ function ProjectContainer() {
                         <div className="bg-color-bg h-48 overflow-auto">
                             <div className="py-2 px-4">
                                 {activities.map(item =>
-                                    <div key={item.id} className="border-solid border-l border-color-gray mb-2">
+                                    <div key={item?.id} className="border-solid border-l border-color-gray mb-2">
                                         <div className="pl-3 py-2 flex flex-col gap-1">
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center">
-                                                    <div className="flex leading-normal items-center">
-                                                        <Avatar src={avatar} alt="Avatar" size="sm"
-                                                                sx={{
-                                                                    'cursor': "pointer", 'position': "static"
-                                                                }}
-                                                        />
-                                                        <p className="pl-2 text-sm text-color-main cursor-pointer">@{item.user}</p>
-                                                    </div>
-                                                    <p className="ml-3 text-sm text-color-light-gray">{item.timesince}</p>
-                                                </div>
-                                                <div>
-                                                    <Link to='/delete'>
-                                                        <IoMdClose
-                                                            className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                    <Link to={`/profile/${item?.user?.id}`}>
+                                                        <div className="flex leading-normal items-center">
+                                                            <Avatar src={avatar} alt="Avatar" size="sm"
+                                                                    sx={{
+                                                                        'cursor': "pointer", 'position': "static"
+                                                                    }}
+                                                            />
+                                                            <p className="pl-2 text-sm text-color-main cursor-pointer">@{item?.user?.username}</p>
+                                                        </div>
                                                     </Link>
+                                                    <p className="ml-3 text-sm text-color-light-gray">{item?.timesince} ago</p>
                                                 </div>
+                                                {/*<div>*/}
+                                                {/*    <Link to='/delete'>*/}
+                                                {/*        <IoMdClose className="text-color-light-gray text-sm cursor-pointer mr-2"/>*/}
+                                                {/*    </Link>*/}
+                                                {/*</div>*/}
                                             </div>
-                                            <p className="text-color-light-gray">{item.body}</p>
+                                            <p className="text-color-light-gray">{item?.body}</p>
                                         </div>
                                     </div>
                                 )}
