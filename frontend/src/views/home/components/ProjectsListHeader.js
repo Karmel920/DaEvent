@@ -8,8 +8,14 @@ function ProjectsListHeader({totalProjects}) {
     return (
         <div className="flex justify-between items-center w-full pt-10 mb-5">
             <div className="">
-                <h2 className="text-lg text-color-light">PROJECTS</h2>
-                <p className="text-color-dark-light">{totalProjects} Projects available {slug}</p>
+                {
+                    slug ? (
+                        <h2 className="text-lg text-color-light">{slug.toUpperCase()} PROJECTS</h2>
+                    ) : (
+                        <h2 className="text-lg text-color-light">ALL PROJECTS</h2>
+                    )
+                }
+                <p className="text-color-dark-light">{totalProjects} Projects available</p>
             </div>
             <Link to='/create-project'>
                 <Button color="color-main.4" radius="md" size="md"
