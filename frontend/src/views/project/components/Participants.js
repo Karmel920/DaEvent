@@ -1,6 +1,6 @@
 import avatar from "../../../public/images/icons/avatar.svg"
 import {Avatar} from "@mantine/core";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useMutation} from "react-query";
 import {api} from "../../../api/ApiServices";
@@ -33,14 +33,18 @@ function Participants() {
                 <div className="h-full w-full p-4 flex flex-col gap-4">
                     {participants.map(item =>
                         <div key={item.id} className="flex leading-normal items-center">
-                            <Avatar src={avatar} alt="Avatar"
-                                    sx={{
-                                        'cursor': "pointer", 'position': "static"
-                                    }}
-                            />
+                            <Link to={"/profile"}>
+                                <Avatar src={avatar} alt="Avatar"
+                                        sx={{
+                                            'cursor': "pointer", 'position': "static"
+                                        }}
+                                />
+                            </Link>
                             <div className="flex-col pl-3">
                                 <p className="text-sm text-color-light-gray">{item.full_name}</p>
-                                <p className="text-sm text-color-main cursor-pointer">@{item.username}</p>
+                                <Link to={"/profile"}>
+                                    <p className="text-sm text-color-main cursor-pointer">@{item.username}</p>
+                                </Link>
                             </div>
                         </div>
                     )}
