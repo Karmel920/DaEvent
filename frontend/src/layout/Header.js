@@ -5,8 +5,9 @@ import {Avatar, Button, createStyles, Menu, TextInput} from "@mantine/core";
 import {BsChevronDown} from "react-icons/bs";
 import {AiOutlineSearch} from "react-icons/ai";
 import {IoLogOutOutline, IoSettingsOutline} from "react-icons/io5";
-import {useAuth} from "../context/AuthContext";
+import {useAuth, UserContext} from "../context/AuthContext";
 import {useNavigate} from "react-router";
+import {useContext, useEffect, useState} from "react";
 
 const useStyles = createStyles((theme) => ({
     menu: {
@@ -18,8 +19,15 @@ const useStyles = createStyles((theme) => ({
 
 function Header() {
     const { classes } = useStyles();
+    const [userData, setUserData] = useState();
+
+    const {user} = useAuth();
 
     const {logout} = useAuth();
+
+    useEffect(() => {
+        setUserData(user);
+    },[user])
 
     const navigate = useNavigate();
 
@@ -52,17 +60,17 @@ function Header() {
                     </form>
                 </div>
                 <div className="flex gap-4 items-center">
-                    <Link to="/profile">
+                    <Link to={`/profile/${user?.id}`}>
                         <Avatar src={avatar} alt="Avatar"
                                 sx={{
                                     'cursor': "pointer"
                                 }}
                         />
                     </Link>
-                    <div>
-                        <p className="text-color-gray cursor-pointer">Karmel</p>
-                        <Link to='/profile'>
-                            <p className="text-color-main cursor-pointer">@Karmel</p>
+                    <div className="w-28">
+                        <p className="text-color-gray cursor-pointer">{user?.full_name}</p>
+                        <Link to={`/profile/${user?.id}`}>
+                            <p className="text-color-main cursor-pointer">@{user?.username}</p>
                         </Link>
                     </div>
                     <Menu width={200} shadow="md" position="bottom">
