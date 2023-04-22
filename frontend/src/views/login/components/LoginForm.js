@@ -14,7 +14,7 @@ function LoginForm() {
         }
     });
 
-    const {login} = useAuth();
+    const {me} = useAuth();
 
     const submitHandle = data => {
         loginMutation.mutate(data)
@@ -23,12 +23,12 @@ function LoginForm() {
     const navigate = useNavigate();
 
     const onSuccess = (data) => {
-        login(data.data.access);
+        me(data);
         navigate('/');
     }
 
     const loginMutation = useMutation(api.login, {
-        onSuccess: data => onSuccess(data),
+        onSuccess: ({data}) => onSuccess(data.access),
     });
 
     return (

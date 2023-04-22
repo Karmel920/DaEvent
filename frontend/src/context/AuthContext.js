@@ -1,56 +1,73 @@
 import React, {createContext, useState, useEffect, useContext} from "react";
+import {api} from "../api/ApiServices";
 
 export const UserContext = createContext({
-  token: '',
-  login: () => {},
-  logout: () => {},
+    token: '',
+    user: {},
+    me: () => {
+    },
+    login: () => {
+    },
+    logout: () => {
+    },
 });
 
 export const useAuth = () => useContext(UserContext);
 
-// Tworzymy komponent dostarczający kontekstu
-export const UserProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
+export const UserProvider = ({children}) => {
+    const [token, setToken] = useState(null);
+    const [user, setUser] = useState(null);
 
-  // Funkcja do zapisywania tokena w localStorage
-  const saveTokenToLocalStorage = (token) => {
-    localStorage.setItem("token", token);
-  };
+    const me = (dataToken) => {
+        saveTokenToLocalStorage(dataToken);
+        async function fetchData() {
+            try {
+                const response = await api.getMe();
+                login(response.data);
+            } catch (error) {
+                console.error(error);
+                logout();
+            }
+        }
+        fetchData();
+    };
 
-  // Funkcja do odczytywania tokena z localStorage
-  const getTokenFromLocalStorage = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setToken(token);
-    }
-  };
+    const saveTokenToLocalStorage = (token) => {
+        localStorage.setItem("token", token);
+    };
 
-  useEffect(() => {
-    getTokenFromLocalStorage();
-  }, []);
+    const getTokenFromLocalStorage = () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            setToken(token);
+        }
+    };
 
-  // Funkcja do logowania użytkownika
-  const login = (token) => {
-    setToken(token);
-    saveTokenToLocalStorage(token);
-  };
+    useEffect(() => {
+        getTokenFromLocalStorage();
+    }, []);
 
-  // Funkcja do wylogowywania użytkownika
-  const logout = () => {
-    setToken(null);
-    localStorage.removeItem("token");
-  };
+    const login = (userData) => {
+        setUser(userData);
+    };
 
-  // Obiekt dostarczany przez kontekst
-  const userContextValue = {
-    token,
-    login,
-    logout,
-  };
+    const logout = () => {
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem("token");
+    };
 
-  return (
-    <UserContext.Provider value={userContextValue}>
-      {children}
-    </UserContext.Provider>
-  );
+    const userContextValue = {
+        token,
+        user,
+        me,
+        login,
+        logout,
+    };
+
+    return (
+        <UserContext.Provider value={userContextValue}>
+            {children}
+        </UserContext.Provider>
+    );
 };

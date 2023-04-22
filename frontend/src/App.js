@@ -11,26 +11,43 @@ import UpdateUser from "./views/update-user/UpdateUser";
 import TopicsList from "./views/topics_list/TopicsList";
 import Settings from "./views/settings/Settings";
 import UpdatePassword from "./views/update_password/UpdatePassword";
+import {useEffect} from "react";
+import {useAuth} from "./context/AuthContext";
+import GuestOutlet from "./router/GuestRouting";
+import UserOutlet from "./router/UserRouting";
 
 const queryClient = new QueryClient();
 
 function App() {
+    const {me} = useAuth();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            me(token);
+        }
+    }, []);
+
     return (
         <QueryClientProvider client={queryClient}>
             <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/projects' element={<Home/>}/>
-                <Route path='/projects/:slug' element={<Home/>}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/register' element={<Register/>}/>
-                <Route path='/profile' element={<Profile/>}/>
-                <Route path='/create-project' element={<ProjectForm/>}/>
-                <Route path='/project/:slug' element={<Project/>}/>
-                <Route path='/delete' element={<DeleteForm/>}/>
-                <Route path='/topics' element={<TopicsList/>}/>S
-                <Route path='/settings' element={<Settings/>}/>
-                <Route path='/update-user' element={<UpdateUser/>}/>
-                <Route path='/update-password' element={<UpdatePassword/>}/>
+                <Route path="/" element={<UserOutlet/>}>
+                    <Route index element={<Home/>}/>
+                    <Route path='/projects' element={<Home/>}/>
+                    <Route path='/projects/:slug' element={<Home/>}/>
+                    <Route path='/profile/:slug' element={<Profile/>}/>
+                    <Route path='/create-project' element={<ProjectForm/>}/>
+                    <Route path='/project/:slug' element={<Project/>}/>
+                    <Route path='/delete' element={<DeleteForm/>}/>
+                    <Route path='/topics' element={<TopicsList/>}/>S
+                    <Route path='/settings' element={<Settings/>}/>
+                    <Route path='/update-user' element={<UpdateUser/>}/>
+                    <Route path='/update-password' element={<UpdatePassword/>}/>
+                </Route>
+                <Route path="/" element={<GuestOutlet/>}>
+                    <Route path='/login' element={<Login/>}/>
+                    <Route path='/register' element={<Register/>}/>
+                </Route>
             </Routes>
         </QueryClientProvider>
     );

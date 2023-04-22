@@ -18,7 +18,7 @@ function Login() {
                 <div className="px-8">
                     <LoginForm/>
                 </div>
-                <p className="text-color-light-gray flex justify-center pt-4">
+                <p className="text-color-light-gray flex justify-center pt-2">
                     Haven't signed up yet?
                 </p>
                 <Link to='/register'>

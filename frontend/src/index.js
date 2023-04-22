@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom"
 import {MantineProvider, createEmotionCache} from "@mantine/core";
+import { Notifications } from '@mantine/notifications';
 import {UserProvider} from "./context/AuthContext";
 
 const myCache = createEmotionCache({ key: 'mantine' });
@@ -79,6 +80,7 @@ root.render(
                                  }
                              }}>
                 <UserProvider>
+                    <Notifications />
                     <App/>
                 </UserProvider>
             </MantineProvider>
