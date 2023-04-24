@@ -25,10 +25,10 @@ function RegisterForm() {
     const registerMutation = useMutation(api.register, {
         onSuccess: () => {
             notifications.show({
-            title: 'Register',
-            message: 'Registration was successful!',
-            color: 'green',
-        });
+                title: 'Register',
+                message: 'Registration was successful!',
+                color: 'green',
+            });
             form.reset();
             navigate("/login");
         }
