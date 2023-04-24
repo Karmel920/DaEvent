@@ -7,11 +7,19 @@ import {BsPersonAdd} from "react-icons/bs";
 import {useEffect, useState} from "react";
 import {useMutation} from "react-query";
 import {api} from "../../../api/ApiServices";
+import {useNavigate} from "react-router";
+import {useAuth} from "../../../context/AuthContext";
 
 function ProjectContainer() {
     const {slug} = useParams();
     const [project, setProject] = useState({});
     const [activities, setActivities] = useState([]);
+    const navigate = useNavigate();
+    const {user} = useAuth();
+
+    const previousView = () => {
+        navigate(-1);
+    }
 
     useEffect(() => {
         if (!slug) return;
@@ -33,19 +41,24 @@ function ProjectContainer() {
                 <div className="bg-color-dark-light rounded-t-lg py-2 px-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <Link to='/'>
-                                <IoMdArrowBack className="text-color-main text-xl cursor-pointer"/>
-                            </Link>
+                            <IoMdArrowBack className="text-color-main text-xl cursor-pointer"
+                                           onClick={() => previousView()}/>
                             <h3 className="text-color-light">PROJECT</h3>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <Link to='/create-project'>
-                                <AiOutlineEdit className="text-color-light-gray text-xl cursor-pointer"/>
-                            </Link>
-                            <Link to='/delete'>
-                                <IoMdClose className="text-color-light-gray text-xl cursor-pointer"/>
-                            </Link>
-                        </div>
+                        {project?.host?.id === user?.id ? (
+                            <>
+                                <div className="flex items-center gap-2">
+                                    <Link to={`/update-project/${project?.id}`}>
+                                        <AiOutlineEdit className="text-color-light-gray text-xl cursor-pointer"/>
+                                    </Link>
+                                    <Link to={`/delete-project/${project?.id}`}>
+                                        <IoMdClose className="text-color-light-gray text-xl cursor-pointer"/>
+                                    </Link>
+                                </div>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
                 <div className="py-4 px-6 flex flex-col gap-2">
@@ -65,13 +78,6 @@ function ProjectContainer() {
                             </div>
                         </div>
                         <div className="flex gap-5 justify-between">
-                            <Button color="color-dark-medium.2" radius="md" size="sm"
-                                    leftIcon={<BsPersonAdd size="1.2rem" className="mt-0.5 mr-0.5 text-color-dark"/>}
-                                    sx={{
-                                        'position': "static",
-                                    }}>
-                                <p className="text-color-dark">Join</p>
-                            </Button>
                             <span className="text-color-light-gray">{project?.timesince} ago</span>
                         </div>
                     </div>
