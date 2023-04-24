@@ -37,8 +37,10 @@ function App() {
                     <Route path='/projects/:slug' element={<Home/>}/>
                     <Route path='/profile/:slug' element={<Profile/>}/>
                     <Route path='/create-project' element={<ProjectForm/>}/>
+                    <Route path='/update-project/:slug' element={<ProjectForm/>}/>
                     <Route path='/project/:slug' element={<Project/>}/>
-                    <Route path='/delete' element={<DeleteForm/>}/>
+                    <Route path='/delete-project/:slug' element={<DeleteForm/>}/>
+                    <Route path='/delete-user' element={<DeleteForm/>}/>
                     <Route path='/topics' element={<TopicsList/>}/>S
                     <Route path='/settings' element={<Settings/>}/>
                     <Route path='/update-user' element={<UpdateUser/>}/>
