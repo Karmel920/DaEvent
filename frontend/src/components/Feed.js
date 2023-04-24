@@ -99,12 +99,23 @@ function Feed({setTotalHandler}) {
                 </div>
             )}
             <div className="flex justify-center">
-                <Pagination
-                    value={activePage}
-                    onChange={(pageNumber) => handlePageChange(pageNumber)}
-                    total={totalProjects / 6 + 1}
-                    color="color-dark.5"
-                />
+                 {
+                    (totalProjects % 6) === 0 ? (
+                        <Pagination
+                            value={activePage}
+                            onChange={(pageNumber) => handlePageChange(pageNumber)}
+                            total = {totalProjects / 6}
+                            color="color-dark.5"
+                        />
+                    ) : (
+                       <Pagination
+                            value={activePage}
+                            onChange={(pageNumber) => handlePageChange(pageNumber)}
+                            total = {(totalProjects / 6) + 1}
+                            color="color-dark.5"
+                        />
+                    )
+                }
             </div>
         </div>
     );
