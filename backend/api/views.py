@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth.hashers import make_password
 from django.db.models import Count, Q
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
@@ -6,10 +8,12 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from daevent.models import Topic, Project, Message, CustomUser
 from .serializers import TopicSerializer, ProjectSerializer, MessageSerializer, RecentMessageSerializer, \
-    ParticipantsSerializer, TopicListSerializer, UserSerializer, UserRegisterSerializer
+    ParticipantsSerializer, TopicListSerializer, UserSerializer, UserRegisterSerializer, UserChangePasswordSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+from daevent.forms import ProjectForm
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -43,6 +47,9 @@ def getRoutes(request):
         'POST /api/token',
         'POST /api/token/refresh',
         'POST /api/register',
+        'POST /api/change-password',
+        'POST /api/create-project',
+        'POST /api/update-project/:id',
         'GET /api/me',
         'GET /api/topics',
         'GET /api/all-topics',
@@ -57,6 +64,8 @@ def getRoutes(request):
         'GET /api/user-activities/:id',
         'GET /api/project-activities/:id',
         'GET /api/project-participants/:id',
+        'DELETE /api/delete-user/:id',
+        'DELETE /api/delete-project/:id',
     ]
     return Response(routes)
 
@@ -199,3 +208,82 @@ def postRegisterUser(request):
         serializer.save()
         return Response({'message': 'User successfully registered'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def postCreateProject(request):
+    form = ProjectForm(request.data)
+    if form.is_valid():
+        topic_name = request.data.get('topic').capitalize()
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        project = form.save(commit=False)
+        project.topic = topic
+        project.host = request.user
+        project.save()
+        project.participants.add(request.user)
+        return Response({'message': 'Project successfully created'}, status=status.HTTP_201_CREATED)
+    return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def postUpdateProject(request, pk):
+    try:
+        project = Project.objects.get(id=pk)
+    except Project.DoesNotExist:
+        return Response({'message': 'Project does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if project.host != request.user:
+        return Response({'message': 'You are not authorized to update this project'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    form = ProjectForm(request.data, instance=project)
+    if form.is_valid():
+        topic_name = request.data.get('topic').capitalize()
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        project = form.save(commit=False)
+        project.topic = topic
+        project.save()
+        return Response({'message': 'Project successfully updated'}, status=status.HTTP_200_OK)
+    return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def postUserChangePassword(request):
+    serializer = UserChangePasswordSerializer(data=request.data)
+    if serializer.is_valid():
+        user = authenticate(
+            request=request,
+            username=request.user.email,
+            password=serializer.data.get('old_password')
+        )
+        if user is not None:
+            new_password = serializer.data.get('new_password')
+            request.user.password = make_password(new_password)
+            request.user.save()
+            return Response({'status': 'success', 'message': 'Password updated successfully'}, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteUser(request, pk):
+    user = CustomUser.objects.get(id=pk)
+    user.delete()
+    return Response({'message': 'User successfully deleted'}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteProject(request, pk):
+    try:
+        project = Project.objects.get(id=pk)
+    except Project.DoesNotExist:
+        return Response({'message': 'Project does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if project.host != request.user:
+        return Response({'message': 'You are not authorized to delete this project'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    project.delete()
+    return Response({'message': 'Project successfully deleted'}, status=status.HTTP_204_NO_CONTENT)

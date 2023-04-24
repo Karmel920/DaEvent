@@ -7,6 +7,30 @@ export const api = {
     register: data => {
         return axios.post(`${process.env.REACT_APP_API_URL}/api/register`, data)
     },
+    createProject: data => {
+        const token = localStorage.getItem('token');
+        return axios.post(`${process.env.REACT_APP_API_URL}/api/create-project`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    },
+    updateProject: ({data, id}) => {
+        const token = localStorage.getItem('token');
+        return axios.post(`${process.env.REACT_APP_API_URL}/api/update-project/${id}`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    },
+    changePassword: data => {
+        const token = localStorage.getItem('token');
+        return axios.post(`${process.env.REACT_APP_API_URL}/api/change-password`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    },
     topics: () => {
         return axios.get(`${process.env.REACT_APP_API_URL}/api/topics`)
     },
@@ -47,5 +71,21 @@ export const api = {
     },
     getUserProfile: id => {
         return axios.get(`${process.env.REACT_APP_API_URL}/api/user-profile/${id}`)
+    },
+    deleteUser: id => {
+        const token = localStorage.getItem('token');
+        return axios.delete(`${process.env.REACT_APP_API_URL}/api/delete-user/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    },
+    deleteProject: id => {
+        const token = localStorage.getItem('token');
+        return axios.delete(`${process.env.REACT_APP_API_URL}/api/delete-project/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
     },
 }

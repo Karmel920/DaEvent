@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from daevent.models import Topic, Project, Message, CustomUser
 from rest_framework.validators import UniqueValidator
@@ -119,3 +120,16 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password': 'Passwords must match.'})
         user = CustomUser.objects.create_user(validated_data['email'], validated_data['username'], password1)
         return user
+
+
+class UserChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(min_length=8, required=True)
+    new_password = serializers.CharField(min_length=8, required=True, validators=[validate_password])
+    confirm_password = serializers.CharField(min_length=8, required=True, validators=[validate_password])
+
+    def validate(self, data):
+        new_password = data.get('new_password')
+        confirm_password = data.get('confirm_password')
+        if new_password != confirm_password:
+            raise serializers.ValidationError("New password and confirm password does not match")
+        return data
