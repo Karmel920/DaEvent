@@ -23,6 +23,19 @@ export const api = {
             }
         })
     },
+    updateUser: data => {
+        const token = localStorage.getItem('token');
+        const formData = new FormData();
+        formData.append('avatar', data.avatar);
+        formData.append('full_name', data.full_name);
+        formData.append('bio', data.bio);
+        return axios.post(`${process.env.REACT_APP_API_URL}/api/update-user`, formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
     changePassword: data => {
         const token = localStorage.getItem('token');
         return axios.post(`${process.env.REACT_APP_API_URL}/api/change-password`, data, {
@@ -64,13 +77,13 @@ export const api = {
     getAllProjects: page => {
         return axios.get(`${process.env.REACT_APP_API_URL}/api/projects?page=${page}`)
     },
-    getUserProjects: ({ id, page }) => {
+    getUserProjects: ({id, page}) => {
         return axios.get(`${process.env.REACT_APP_API_URL}/api/user-projects/${id}?page=${page}`)
     },
     getProjectById: id => {
         return axios.get(`${process.env.REACT_APP_API_URL}/api/project/${id}`)
     },
-    getProjectsByTopic: ({ name, page }) => {
+    getProjectsByTopic: ({name, page}) => {
         return axios.get(`${process.env.REACT_APP_API_URL}/api/projects/${name}?page=${page}`)
     },
     getRecentActivities: () => {
@@ -99,6 +112,14 @@ export const api = {
     deleteProject: id => {
         const token = localStorage.getItem('token');
         return axios.delete(`${process.env.REACT_APP_API_URL}/api/delete-project/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    },
+    deleteComment: id => {
+        const token = localStorage.getItem('token');
+        return axios.delete(`${process.env.REACT_APP_API_URL}/api/delete-comment/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
