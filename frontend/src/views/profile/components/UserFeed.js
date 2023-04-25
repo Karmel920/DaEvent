@@ -47,7 +47,10 @@ function UserFeed() {
                     <div className="flex justify-between items-center text-color-light">
                         <Link to={`/profile/${item.host.id}`}>
                             <div className="flex items-center">
-                                <Avatar src={avatar} alt="Avatar" size="md"
+                                <Avatar src={`${process.env.REACT_APP_API_URL}/images/${item?.host?.avatar}`}
+                                        alt="Avatar"
+                                        size="md"
+                                        radius="xl"
                                         sx={{
                                             'cursor': "pointer", 'position': "static"
                                         }}
