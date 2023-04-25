@@ -31,6 +31,22 @@ export const api = {
             }
         })
     },
+    addUserToProject: id => {
+        const token = localStorage.getItem('token');
+        return axios.post(`${process.env.REACT_APP_API_URL}/api/add-user-to-project/${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    },
+    addCommentToProject: ({data, id}) => {
+        const token = localStorage.getItem('token');
+        return axios.post(`${process.env.REACT_APP_API_URL}/api/add-comment/${id}`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    },
     topics: () => {
         return axios.get(`${process.env.REACT_APP_API_URL}/api/topics`)
     },
