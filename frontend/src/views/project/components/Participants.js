@@ -6,23 +6,37 @@ import {useMutation} from "react-query";
 import {api} from "../../../api/ApiServices";
 import {BsPersonAdd} from "react-icons/bs";
 import {useAuth} from "../../../context/AuthContext";
+import {useNavigate} from "react-router";
 
 function Participants() {
     const {slug} = useParams();
     const [participants, setParticipants] = useState([]);
     const [participantsCount, setParticipantsCount] = useState(0);
     const {user} = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        reFetchParticipants();
+    }, []);
+
+    const reFetchParticipants = () => {
         if (!slug) return;
         participantsMutation.mutate(slug);
-    }, []);
+    }
 
     const participantsMutation = useMutation(api.getParticipants, {
         onSuccess: ({data}) => {
             setParticipants(data.participants);
             setParticipantsCount(data.participants_count);
         }
+    });
+
+    const addUserToProjectHandler = data => {
+        addUserToProjectMutation.mutate(data)
+    };
+
+    const addUserToProjectMutation = useMutation(api.addUserToProject, {
+        onSuccess: reFetchParticipants,
     });
 
     return (
@@ -38,6 +52,7 @@ function Participants() {
                         <></>
                     ) : (
                         <Button color="color-dark-medium.2" radius="md" size="sm"
+                                onClick={() => addUserToProjectHandler(slug)}
                                 leftIcon={<BsPersonAdd size="1.2rem" className="mt-0.5 mr-0.5 text-color-dark"/>}
                                 sx={{
                                     'position': "static",
