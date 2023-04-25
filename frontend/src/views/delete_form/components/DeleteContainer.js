@@ -12,9 +12,14 @@ function DeleteContainer() {
     const {logout} = useAuth();
     const navigate = useNavigate();
 
+    const previousView = () => {
+        navigate(-1);
+    }
+
     const location = useLocation();
     const matchProject = match('/delete-project/:slug', {decode: decodeURIComponent})(location.pathname);
     const matchUser = match('/delete-user', {decode: decodeURIComponent})(location.pathname);
+    const matchComment = match('/delete-comment/:slug', {decode: decodeURIComponent})(location.pathname);
 
     const submitUserDelete = data => {
         deleteUserMutation.mutate(data)
@@ -24,6 +29,16 @@ function DeleteContainer() {
         deleteProjectMutation.mutate(data)
     }
 
+    const submitCommentDelete = data => {
+        deleteCommentMutation.mutate(data)
+    }
+
+    const deleteCommentMutation = useMutation(api.deleteComment, {
+        onSuccess: () => {
+            navigate(-1);
+        }
+    })
+
     const deleteUserMutation = useMutation(api.deleteUser, {
         onSuccess: () => {
             logout();
@@ -32,7 +47,7 @@ function DeleteContainer() {
 
     const deleteProjectMutation = useMutation(api.deleteProject, {
         onSuccess: () => {
-            navigate("/")
+            navigate("/");
         }
     })
 
@@ -41,9 +56,7 @@ function DeleteContainer() {
             <div className="h-[75vh] w-10/12 rounded-lg bg-color-dark mx-auto">
                 <div className="bg-color-dark-light rounded-t-lg py-2 px-3">
                     <div className="flex items-center gap-2">
-                        <Link to='/'>
-                            <IoMdArrowBack className="text-color-main text-xl cursor-pointer"/>
-                        </Link>
+                        <IoMdArrowBack className="text-color-main text-xl cursor-pointer" onClick={() => previousView()}/>
                         <h3 className="text-color-light">BACK</h3>
                     </div>
                 </div>
@@ -76,6 +89,21 @@ function DeleteContainer() {
                                     w={130}
                             >
                                 Delete Account
+                            </Button>
+                        </>
+                    ) : matchComment ? (
+                        <>
+                            <div className="text-color-light-gray text-lg">
+                                Are you sure you want to delete the comment?
+                            </div>
+                            <Button radius="sm" size="sm" color="color-error.4"
+                                    onClick={() => submitCommentDelete(matchComment.params.slug)}
+                                    type={"button"}
+                                    mb={0}
+                                    mt={15}
+                                    w={130}
+                            >
+                                Delete comment
                             </Button>
                         </>
                     ) : (
