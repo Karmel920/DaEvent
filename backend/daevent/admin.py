@@ -14,14 +14,14 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ("id", "email", "is_staff", "is_active",)
     readonly_fields = ("date_joined", "last_login")
     fieldsets = (
-        ("User info", {"fields": ("email", "password", "username", "full_name", "bio")}),
+        ("User info", {"fields": ("avatar", "email", "password", "username", "full_name", "bio")}),
         ("Permissions", {"fields": ("is_staff", "is_active", "groups", "user_permissions")}),
     )
     add_fieldsets = (
         (None, {
             "classes": ("wide",),
             "fields": (
-                "email", "username", "password1", "password2", "full_name", "bio", "is_staff",
+                "email", "username", "password1", "password2", "avatar", "full_name", "bio", "is_staff",
                 "is_active", "groups", "user_permissions"
             )}
          ),

@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     full_name = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(unique=True)
     bio = models.TextField(null=True, blank=True)
-    # avatar = models.ImageField(null=True, default="avatar.svg")
+    avatar = models.ImageField(null=True, blank=True, default="avatar.svg", upload_to="")
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

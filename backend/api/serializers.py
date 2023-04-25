@@ -38,7 +38,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'timesince', 'host', 'topic', 'participants_count']
 
     def get_host(self, obj):
-        return {'id': obj.host.id, 'username': str(obj.host)}
+        return {'id': obj.host.id, 'username': str(obj.host), 'avatar': str(obj.host.avatar)}
 
     def get_participants_count(self, obj):
         return obj.participants.count()
@@ -54,7 +54,7 @@ class RecentMessageSerializer(serializers.ModelSerializer):
         fields = ['id', 'body_short', 'user', 'project', 'timesince']
 
     def get_user(self, obj):
-        return {'id': obj.user.id, 'username': str(obj.user)}
+        return {'id': obj.user.id, 'username': str(obj.user), 'avatar': str(obj.user.avatar)}
 
     def get_project(self, obj):
         return {'id': obj.project.id, 'name': str(obj.project)}
@@ -74,13 +74,13 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = ['id', 'body', 'user', 'project', 'timesince']
 
     def get_user(self, obj):
-        return {'id': obj.user.id, 'username': str(obj.user)}
+        return {'id': obj.user.id, 'username': str(obj.user), 'avatar': str(obj.user.avatar)}
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'full_name', 'username', 'bio']
+        fields = ['id', 'full_name', 'username', 'bio', 'avatar']
 
 
 class ParticipantsSerializer(serializers.ModelSerializer):

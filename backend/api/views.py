@@ -13,7 +13,7 @@ from .serializers import TopicSerializer, ProjectSerializer, MessageSerializer, 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from daevent.forms import ProjectForm, MessageForm
+from daevent.forms import ProjectForm, MessageForm, CustomUserChangeForm
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -62,12 +62,14 @@ def getRoutes(request):
         'POST /api/token/refresh',
         'POST /api/register',
         'POST /api/change-password',
+        'POST /api/update-user',
         'POST /api/create-project',
         'POST /api/update-project/:id',
         'POST /api/add-user-to-project/:id',
         'POST /api/add-comment/:id',
         'DELETE /api/delete-user/:id',
         'DELETE /api/delete-project/:id',
+        'DELETE /api/delete-comment/:id',
     ]
     return Response(routes)
 
@@ -110,11 +112,11 @@ def getProject(request, pk):
 @api_view(['GET'])
 def getProjectsBySearch(request, **kwargs):
     pagination_class = PageNumberPagination()
-    topic_name = kwargs.get('query_search')
+    query_search = kwargs.get('query_search')
     projects = Project.objects.filter(
-        Q(topic__name__icontains=topic_name) |
-        Q(name__icontains=topic_name) |
-        Q(description__icontains=topic_name)
+        Q(topic__name__icontains=query_search) |
+        Q(name__icontains=query_search) |
+        Q(description__icontains=query_search)
     )
     page = pagination_class.paginate_queryset(projects, request)
 
@@ -130,9 +132,16 @@ def getProjectsBySearch(request, **kwargs):
 def getProjectsByTopic(request, **kwargs):
     pagination_class = PageNumberPagination()
     topic_name = kwargs.get('topic_name')
-    projects = Project.objects.filter(
-        Q(topic__name__exact=topic_name)
-    )
+    if Topic.objects.filter(name=topic_name).exists():
+        projects = Project.objects.filter(
+            Q(topic__name__exact=topic_name)
+        )
+    else:
+        projects = Project.objects.filter(
+            Q(topic__name__icontains=topic_name) |
+            Q(name__icontains=topic_name) |
+            Q(description__icontains=topic_name)
+        )
     page = pagination_class.paginate_queryset(projects, request)
 
     if page is not None:
@@ -210,6 +219,25 @@ def postRegisterUser(request):
         serializer.save()
         return Response({'message': 'User successfully registered'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def postUpdateUser(request):
+    try:
+        user = CustomUser.objects.get(id=request.user.id)
+    except CustomUser.DoesNotExist:
+        return Response({'message': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    form = CustomUserChangeForm(request.data, request.FILES, instance=user)
+    if form.is_valid():
+        full_name = request.data.get('full_name').split()
+        full_name = ' '.join(map(lambda x: x.capitalize(), full_name))
+        user = form.save(commit=False)
+        user.full_name = full_name
+        user.save()
+        return Response({'message': 'User successfully updated'}, status=status.HTTP_200_OK)
+    return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -320,5 +348,21 @@ def deleteProject(request, pk):
     if project.host != request.user:
         return Response({'message': 'You are not authorized to delete this project'}, status=status.HTTP_401_UNAUTHORIZED)
 
+
     project.delete()
     return Response({'message': 'Project successfully deleted'}, status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteComment(request, pk):
+    try:
+        message = Message.objects.get(id=pk)
+    except Message.DoesNotExist:
+        return Response({'message': 'Message does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if message.user != request.user:
+        return Response({'message': 'You are not authorized to delete this comment'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    message.delete()
+    return Response({'message': 'Comment successfully deleted'}, status=status.HTTP_204_NO_CONTENT)

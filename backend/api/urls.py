@@ -12,6 +12,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/register', views.postRegisterUser),
     path('api/change-password', views.postUserChangePassword),
+    path('api/update-user', views.postUpdateUser),
     path('api/create-project', views.postCreateProject),
     path('api/update-project/<str:pk>', views.postUpdateProject),
     path('api/add-user-to-project/<str:pk>', views.postAddParticipant),
@@ -32,4 +33,5 @@ urlpatterns = [
     path('api/project-participants/<str:pk>', views.getProjectParticipants),
     path('api/delete-user/<str:pk>', views.deleteUser),
     path('api/delete-project/<str:pk>', views.deleteProject),
+    path('api/delete-comment/<str:pk>', views.deleteComment),
 ]
