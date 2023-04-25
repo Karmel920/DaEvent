@@ -43,6 +43,19 @@ root.render(
                                              }
                                          }
                                      },
+                                     FileInput: {
+                                         styles: {
+                                             input: {
+                                                 background: "#3f4156",
+                                                 color: "#e5e5e5",
+                                                 borderColor: "#696d97",
+                                                 borderWidth: "2px"
+                                             },
+                                             label: {
+                                                 color: '#b2bdbd'
+                                             }
+                                         }
+                                     },
                                      Textarea: {
                                          styles: {
                                              input: {
