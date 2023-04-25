@@ -14,6 +14,8 @@ urlpatterns = [
     path('api/change-password', views.postUserChangePassword),
     path('api/create-project', views.postCreateProject),
     path('api/update-project/<str:pk>', views.postUpdateProject),
+    path('api/add-user-to-project/<str:pk>', views.postAddParticipant),
+    path('api/add-comment/<str:pk>', views.postAddComment),
     path('api/me', views.getMe),
     path('api/topics', views.getTopics),
     path('api/all-topics', views.getAllTopics),

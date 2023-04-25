@@ -13,7 +13,7 @@ from .serializers import TopicSerializer, ProjectSerializer, MessageSerializer, 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from daevent.forms import ProjectForm
+from daevent.forms import ProjectForm, MessageForm
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -44,12 +44,6 @@ def getMe(request):
 def getRoutes(request):
     routes = [
         'GET /api',
-        'POST /api/token',
-        'POST /api/token/refresh',
-        'POST /api/register',
-        'POST /api/change-password',
-        'POST /api/create-project',
-        'POST /api/update-project/:id',
         'GET /api/me',
         'GET /api/topics',
         'GET /api/all-topics',
@@ -64,6 +58,14 @@ def getRoutes(request):
         'GET /api/user-activities/:id',
         'GET /api/project-activities/:id',
         'GET /api/project-participants/:id',
+        'POST /api/token',
+        'POST /api/token/refresh',
+        'POST /api/register',
+        'POST /api/change-password',
+        'POST /api/create-project',
+        'POST /api/update-project/:id',
+        'POST /api/add-user-to-project/:id',
+        'POST /api/add-comment/:id',
         'DELETE /api/delete-user/:id',
         'DELETE /api/delete-project/:id',
     ]
@@ -264,6 +266,39 @@ def postUserChangePassword(request):
             request.user.save()
             return Response({'status': 'success', 'message': 'Password updated successfully'}, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def postAddParticipant(request, pk):
+    try:
+        project = Project.objects.get(id=pk)
+    except Project.DoesNotExist:
+        return Response({'message': 'Project does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if project.participants.filter(id=request.user.id).exists():
+        return Response({'message': 'You are not authorized to delete this project'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    project.participants.add(request.user)
+    return Response({'message': 'User successfully joined'}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def postAddComment(request, pk):
+    try:
+        project = Project.objects.get(id=pk)
+    except Project.DoesNotExist:
+        return Response({'message': 'Project does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    form = MessageForm(request.data)
+    if form.is_valid():
+        message = form.save(commit=False)
+        message.project = project
+        message.user = request.user
+        message.save()
+        return Response({'message': 'Comment successfully created'}, status=status.HTTP_200_OK)
+    return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['DELETE'])
