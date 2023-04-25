@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm
 
-from .models import CustomUser, Project
+from .models import CustomUser, Project, Message
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -20,3 +20,9 @@ class ProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = ("name", "description")
+
+
+class MessageForm(ModelForm):
+    class Meta:
+        model = Message
+        fields = ("body",)
