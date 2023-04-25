@@ -13,7 +13,20 @@ function RegisterForm() {
             username: '',
             password1: '',
             password2: '',
-        }
+        },
+        validate: {
+            email: (value) => (value.length === 0 ? 'Fill the email please' :
+                /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ? null : 'Invalid email'),
+            username: (value) => (value.length === 0 ? 'Fill the username please' : value.length < 5 ?
+                'Username must have at least 5 letters' : null),
+            password1: (value) => (value.length === 0 ? 'Fill the password please' :
+                value.length < 8 ? 'Password must have at least 8 letters' :
+                !/\d+/.test(value) ? 'Password must have at least 1 number' :
+                !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(value) ? 'Password must have at least 1 special sign' :
+                !/[A-Z]+/.test(value) ? 'Password must have at least 1 upper letter' : null),
+            password2: (value) => (value.length === 0 ? 'Fill the password confirmation please' :
+                value !== form.values.password1 ? 'Passwords are not the same' : null),
+        },
     });
 
     const submitHandle = data => {
@@ -43,7 +56,6 @@ function RegisterForm() {
                 placeholder="Enter your email"
                 label="Email"
                 radius="sm"
-                type={"email"}
                 {...form.getInputProps('email')}
             />
             <TextInput

@@ -8,7 +8,7 @@ function Register() {
             <div className="flex justify-center align-middle">
                 <IoIosPeople size="5em" className="text-color-main cursor-pointer"></IoIosPeople>
             </div>
-            <div className="mx-auto max-w-md shadow-lg bg-color-dark rounded-lg h-[80vh]">
+            <div className="mx-auto max-w-md shadow-lg bg-color-dark rounded-lg h-[85vh]">
                 <div className="bg-color-dark-light w-full px-8 flex justify-center text-color-light py-3 rounded-t-lg">
                     REGISTER
                 </div>

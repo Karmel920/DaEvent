@@ -15,7 +15,17 @@ function UpdatePasswordContainer() {
             old_password: '',
             new_password: '',
             confirm_password: '',
-        }
+        },
+        validate: {
+            old_password: (value) => (value.length === 0 ? 'Fill the old password please' : null),
+            new_password: (value) => (value.length === 0 ? 'Fill the new password please' :
+                value.length < 8 ? 'Password must have at least 8 letters' :
+                !/\d+/.test(value) ? 'Password must have at least 1 number' :
+                !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(value) ? 'Password must have at least 1 special sign' :
+                !/[A-Z]+/.test(value) ? 'Password must have at least 1 upper letter' : null),
+            confirm_password: (value) => (value.length === 0 ? 'Fill the password confirmation please' :
+                value !== form.values.new_password ? 'Passwords are not the same' : null),
+        },
     });
 
     const {logout} = useAuth();
