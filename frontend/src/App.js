@@ -40,6 +40,7 @@ function App() {
                     <Route path='/update-project/:slug' element={<ProjectForm/>}/>
                     <Route path='/project/:slug' element={<Project/>}/>
                     <Route path='/delete-project/:slug' element={<DeleteForm/>}/>
+                    <Route path='/delete-comment/:slug' element={<DeleteForm/>}/>
                     <Route path='/delete-user' element={<DeleteForm/>}/>
                     <Route path='/topics' element={<TopicsList/>}/>S
                     <Route path='/settings' element={<Settings/>}/>
