@@ -45,7 +45,6 @@ function FormContainer() {
     const submitHandle = data => {
         const token = localStorage.getItem("token");
         if (token) {
-            console.log(data);
             if (slug) {
                 updateProjectMutation.mutate({data: data, id: slug})
             } else {
