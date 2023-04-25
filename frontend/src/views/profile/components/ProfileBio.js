@@ -20,7 +20,10 @@ function ProfileBio() {
     return (
         <div className="pt-10">
             <div className="mb-1 flex flex-col items-center">
-                <Avatar src={avatar} alt="Avatar" size="xl"
+                <Avatar src={`${process.env.REACT_APP_API_URL}${profile.avatar}`}
+                        alt="Avatar"
+                        size="xl"
+                        radius="xl"
                         sx={{
                             'position': "static",
                         }}

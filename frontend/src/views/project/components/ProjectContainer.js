@@ -80,7 +80,9 @@ function ProjectContainer() {
                             <p className="text-xs text-color-gray mb-1">HOSTED BY</p>
                             <div className="flex leading-normal items-center">
                                 <Link to={`/profile/${project?.host?.id}`} className="flex items-center">
-                                    <Avatar src={avatar} alt="Avatar"
+                                    <Avatar src={`${process.env.REACT_APP_API_URL}/images/${project?.host?.avatar}`}
+                                            alt="Avatar"
+                                            radius="xl"
                                             sx={{
                                                 'cursor': "pointer", 'position': "static"
                                             }}

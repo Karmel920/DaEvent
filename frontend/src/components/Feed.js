@@ -70,14 +70,17 @@ function Feed({setTotalHandler}) {
             {projects.map(item =>
                 <div key={item.id} className="bg-color-dark p-6 rounded-xl mb-6">
                     <div className="flex justify-between items-center text-color-light">
-                        <Link to={`/profile/${item.host.id}`}>
+                        <Link to={`/profile/${item?.host?.id}`}>
                             <div className="flex items-center">
-                                <Avatar src={avatar} alt="Avatar" size="md"
+                                <Avatar src={`${process.env.REACT_APP_API_URL}/images/${item?.host?.avatar}`}
+                                        alt="Avatar"
+                                        size="md"
+                                        radius="xl"
                                         sx={{
                                             'cursor': "pointer", 'position': "static"
                                         }}
                                 />
-                                <span className="text-color-main ml-2 cursor-pointer">@{item.host.username}</span>
+                                <span className="text-color-main ml-2 cursor-pointer">@{item?.host?.username}</span>
                             </div>
                         </Link>
                         <div>

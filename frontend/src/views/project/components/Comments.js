@@ -7,10 +7,14 @@ import {api} from "../../../api/ApiServices";
 import {useForm} from "@mantine/form";
 import {notifications} from "@mantine/notifications";
 import {BiErrorCircle} from "react-icons/bi";
+import {IoMdClose} from "react-icons/io";
+import {useAuth} from "../../../context/AuthContext";
+import {AiOutlineEdit} from "react-icons/ai";
 
 function Comments() {
     const {slug} = useParams();
     const [activities, setActivities] = useState([]);
+    const {user} = useAuth();
 
     const form = useForm({
         initialValues: {
@@ -58,7 +62,10 @@ function Comments() {
                                     <div className="flex items-center">
                                         <Link to={`/profile/${item?.user?.id}`}>
                                             <div className="flex leading-normal items-center">
-                                                <Avatar src={avatar} alt="Avatar" size="sm"
+                                                <Avatar src={`${process.env.REACT_APP_API_URL}/images/${item?.user?.avatar}`}
+                                                        alt="Avatar"
+                                                        size="sm"
+                                                        radius="xl"
                                                         sx={{
                                                             'cursor': "pointer", 'position': "static"
                                                         }}
@@ -68,6 +75,18 @@ function Comments() {
                                         </Link>
                                         <p className="ml-3 text-sm text-color-light-gray">{item?.timesince} ago</p>
                                     </div>
+                                    {item?.user?.id === user?.id ? (
+                                        <>
+                                            <div>
+                                                <Link to={`/delete-comment/${item?.id}`}>
+                                                    <IoMdClose
+                                                        className="text-color-light-gray text-sm cursor-pointer mr-2"/>
+                                                </Link>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
                                 </div>
                                 <p className="text-color-light-gray">{item?.body}</p>
                             </div>
@@ -87,10 +106,10 @@ function Comments() {
                                {...form.getInputProps('body')}
                     />
                     <Button radius="sm" size="sm" color="color-main.4"
-                                    type={"submit"}
-                                    mt={10}
-                                    loading={addCommentMutation.isLoading}
-                            >
+                            type={"submit"}
+                            mt={10}
+                            loading={addCommentMutation.isLoading}
+                    >
                         Comment
                     </Button>
                 </form>

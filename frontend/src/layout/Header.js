@@ -8,6 +8,7 @@ import {IoLogOutOutline, IoSettingsOutline} from "react-icons/io5";
 import {useAuth, UserContext} from "../context/AuthContext";
 import {useNavigate} from "react-router";
 import {useContext, useEffect, useState} from "react";
+import {useForm} from "@mantine/form";
 
 const useStyles = createStyles((theme) => ({
     menu: {
@@ -20,10 +21,20 @@ const useStyles = createStyles((theme) => ({
 function Header() {
     const { classes } = useStyles();
     const [userData, setUserData] = useState();
-
     const {user} = useAuth();
-
     const {logout} = useAuth();
+
+    const form = useForm({
+        initialValues: {
+            query_search: '',
+        },
+    });
+
+    const submitHandle = data => {
+        console.log(data);
+        navigate(`/projects/${data.query_search}`);
+        form.reset();
+    };
 
     useEffect(() => {
         setUserData(user);
@@ -47,8 +58,8 @@ function Header() {
                         <p className="text-xl pl-5 pt-2.5 font-semibold text-color-light cursor-pointer">DaEvent</p>
                     </Link>
                 </div>
-                <div className="flex items-center justify-start ml-16 w-full">
-                    <form className="w-2/5">
+                <div className="flex items-center justify-start ml-20 w-full">
+                    <form className="w-2/5" onSubmit={form.onSubmit(submitHandle)}>
                         <TextInput
                             placeholder="Search Projects..."
                             radius="sm"
@@ -56,18 +67,21 @@ function Header() {
                             w={"100%"}
                             icon={<AiOutlineSearch size="1.2rem"/>}
                             styles={{input: {backgroundColor: "#51546e", borderWidth: "0px"}}}
+                            {...form.getInputProps('query_search')}
                         />
                     </form>
                 </div>
                 <div className="flex gap-4 items-center">
                     <Link to={`/profile/${user?.id}`}>
-                        <Avatar src={avatar} alt="Avatar"
+                        <Avatar src={`${process.env.REACT_APP_API_URL}${user?.avatar}`}
+                                alt="Avatar"
+                                radius="xl"
                                 sx={{
                                     'cursor': "pointer"
                                 }}
                         />
                     </Link>
-                    <div className="w-28">
+                    <div className="w-32">
                         <p className="text-color-gray cursor-pointer">{user?.full_name}</p>
                         <Link to={`/profile/${user?.id}`}>
                             <p className="text-color-main cursor-pointer">@{user?.username}</p>

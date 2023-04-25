@@ -47,13 +47,14 @@ function Participants() {
                         <span className="ml-1.5 text-color-main">({participantsCount} Joined)</span>
                     </h2>
                 </div>
-                <div className="mt-2 flex justify-center">
+                <div className="flex justify-center">
                     {participants.some((p) => p.id === user?.id) ? (
                         <></>
                     ) : (
                         <Button color="color-dark-medium.2" radius="md" size="sm"
                                 onClick={() => addUserToProjectHandler(slug)}
                                 leftIcon={<BsPersonAdd size="1.2rem" className="mt-0.5 mr-0.5 text-color-dark"/>}
+                                mt={10}
                                 sx={{
                                     'position': "static",
                                 }}>
@@ -65,7 +66,9 @@ function Participants() {
                     {participants.map(item =>
                         <div key={item.id} className="flex leading-normal items-center">
                             <Link to={"/profile"}>
-                                <Avatar src={avatar} alt="Avatar"
+                                <Avatar src={`${process.env.REACT_APP_API_URL}${item?.avatar}`}
+                                        alt="Avatar"
+                                        radius="xl"
                                         sx={{
                                             'cursor': "pointer", 'position': "static"
                                         }}

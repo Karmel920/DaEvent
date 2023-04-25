@@ -24,8 +24,10 @@ function Activities() {
             {activities.map(item =>
                 <div key={item.id} className="m-6 p-6 border-2 border-solid border-color-dark-medium">
                     <div className="flex leading-normal">
-                        <Link to="/profile">
-                            <Avatar src={avatar} alt="Avatar"
+                        <Link to={`/profile/${item.user.id}`}>
+                            <Avatar src={`${process.env.REACT_APP_API_URL}/images/${item?.user?.avatar}`}
+                                    alt="Avatar"
+                                    radius="xl"
                                     sx={{
                                         'cursor': "pointer", 'position': "static"
                                     }}
