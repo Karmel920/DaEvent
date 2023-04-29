@@ -17,7 +17,7 @@
 
 
 ## Technologies Used
-- React
+- React JS
 - Python
 - Django REST framework
 - PostgreSQL - version 14.1
