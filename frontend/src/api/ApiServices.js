@@ -63,6 +63,9 @@ export const api = {
     topics: () => {
         return axios.get(`${process.env.REACT_APP_API_URL}/api/topics`)
     },
+    topicsByName: name => {
+        return axios.get(`${process.env.REACT_APP_API_URL}/api/topics/${name}`)
+    },
     getMe: () => {
         const token = localStorage.getItem('token');
         return axios.get(`${process.env.REACT_APP_API_URL}/api/me`, {

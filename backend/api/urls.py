@@ -20,6 +20,7 @@ urlpatterns = [
     path('api/me', views.getMe),
     path('api/topics', views.getTopics),
     path('api/all-topics', views.getAllTopics),
+    path('api/topics/<str:topic_name>', views.getTopicsByName),
     path('api/projects', views.getProjects),
     path('api/project/<str:pk>', views.getProject),
     path('api/projectbyname/<str:project_name>', views.getProjectByName),

@@ -47,6 +47,7 @@ def getRoutes(request):
         'GET /api/me',
         'GET /api/topics',
         'GET /api/all-topics',
+        'GET /api/topics/:topic_name',
         'GET /api/projects',
         'GET /api/project/:id',
         'GET /api/projectbyname/:project_name',
@@ -84,6 +85,21 @@ def getTopics(request):
 @api_view(['GET'])
 def getAllTopics(request):
     topics = Topic.objects.annotate(project_count=Count('project')).order_by('-project_count')
+    serializer = TopicSerializer(topics)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getTopicsByName(request, **kwargs):
+    topic_name = kwargs.get('topic_name')
+    if Topic.objects.filter(name=topic_name).exists():
+        topics = Topic.objects.filter(
+            Q(name__exact=topic_name)
+        ).annotate(project_count=Count('project')).order_by('-project_count')
+    else:
+        topics = Topic.objects.filter(
+            Q(name__icontains=topic_name)
+        ).annotate(project_count=Count('project')).order_by('-project_count')
     serializer = TopicSerializer(topics)
     return Response(serializer.data)
 
