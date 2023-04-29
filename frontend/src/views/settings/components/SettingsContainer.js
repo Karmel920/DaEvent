@@ -12,9 +12,9 @@ function SettingsContainer() {
                 <div className="bg-color-dark-light rounded-t-lg py-2 px-3">
                     <div className="flex items-center gap-2">
                         <Link to='/'>
-                            <IoMdArrowBack className="text-color-main text-xl cursor-pointer"/>
+                            <IoMdArrowBack className="text-color-main text-lg sm:text-xl cursor-pointer"/>
                         </Link>
-                        <h3 className="text-color-light">SETTINGS</h3>
+                        <h3 className="text-color-light text-sm sm:text-base">SETTINGS</h3>
                     </div>
                 </div>
                 <div className="flex flex-col items-center">
@@ -24,6 +24,7 @@ function SettingsContainer() {
                                 mt={30}
                                 mb={0}
                                 w={200}
+                                styles={{root: {zIndex: 1}}}
                         >
                             Edit profile
                         </Button>

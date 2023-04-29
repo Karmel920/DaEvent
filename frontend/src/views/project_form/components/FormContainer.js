@@ -145,32 +145,58 @@ function FormContainer() {
                             mb={10}
                             {...form.getInputProps('description')}
                         />
-                        <div className="flex gap-6 justify-end pr-2.5">
-                            <Link to="/">
-                                <Button radius="sm" size="sm" color="color-dark-light.4"
-                                        type={"button"}
+                        <div className="hidden sm:block">
+                            <div className="flex gap-6 gap-3 justify-end pr-2.5">
+                                <Link to="/">
+                                    <Button radius="sm" size="sm" color="color-dark-light.4"
+                                            type={"button"}
+                                            mt={30}
+                                            mb={0}
+                                            w={100}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </Link>
+                                <Button radius="sm" size="sm" color="color-main.4"
+                                        type={"submit"}
                                         mt={30}
                                         mb={0}
                                         w={100}
+                                        loading={createProjectMutation.isLoading}
                                 >
-                                    Cancel
+                                    Submit
                                 </Button>
-                            </Link>
-                            <Button radius="sm" size="sm" color="color-main.4"
-                                    type={"submit"}
-                                    mt={30}
-                                    mb={0}
-                                    w={100}
-                                    loading={createProjectMutation.isLoading}
-                            >
-                                Submit
-                            </Button>
+                            </div>
+                        </div>
+                        <div className="sm:hidden block">
+                            <div className="flex gap-6 gap-3 justify-end pr-2.5">
+                                <Link to="/">
+                                    <Button radius="sm" size="xs" color="color-dark-light.4"
+                                            type={"button"}
+                                            mt={10}
+                                            mb={0}
+                                            w={70}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </Link>
+                                <Button radius="sm" size="xs" color="color-main.4"
+                                        type={"submit"}
+                                        mt={10}
+                                        mb={0}
+                                        w={80}
+                                        loading={createProjectMutation.isLoading}
+                                >
+                                    Submit
+                                </Button>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 }
 
 export default FormContainer;

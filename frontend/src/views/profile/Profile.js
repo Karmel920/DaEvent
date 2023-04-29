@@ -12,18 +12,28 @@ function Profile() {
                 <Header/>
             </div>
             <Container>
-                <Grid gutter="xl" pt={50} mx={10} justify={"center"}>
-                    <Grid.Col span={2}>
-                        {/*<Topics/>*/}
-                    </Grid.Col>
-                    <Grid.Col span={7}>
-                        <ProfileBio/>
-                        <UserFeed/>
-                    </Grid.Col>
-                    <Grid.Col span={3}>
-                        <UserActivities/>
-                    </Grid.Col>
-                </Grid>
+                <div className="hidden lg:block">
+                    <Grid gutter="xl" pt={50} mx={10} justify={"center"}>
+                        <Grid.Col span={2}>
+                            {/*<Topics/>*/}
+                        </Grid.Col>
+                        <Grid.Col span={7}>
+                            <ProfileBio/>
+                            <UserFeed/>
+                        </Grid.Col>
+                        <Grid.Col span={3}>
+                            <UserActivities/>
+                        </Grid.Col>
+                    </Grid>
+                </div>
+                <div className="block lg:hidden">
+                    <Grid gutter="md" pt={50} justify={"center"}>
+                        <Grid.Col span={10}>
+                            <ProfileBio/>
+                            <UserFeed/>
+                        </Grid.Col>
+                    </Grid>
+                </div>
             </Container>
         </>
     );

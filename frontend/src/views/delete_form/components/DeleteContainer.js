@@ -56,14 +56,14 @@ function DeleteContainer() {
             <div className="h-[75vh] w-10/12 rounded-lg bg-color-dark mx-auto">
                 <div className="bg-color-dark-light rounded-t-lg py-2 px-3">
                     <div className="flex items-center gap-2">
-                        <IoMdArrowBack className="text-color-main text-xl cursor-pointer" onClick={() => previousView()}/>
-                        <h3 className="text-color-light">BACK</h3>
+                        <IoMdArrowBack className="text-color-main text-lg sm:text-xl cursor-pointer" onClick={() => previousView()}/>
+                        <h3 className="text-color-light text-sm sm:text-base">BACK</h3>
                     </div>
                 </div>
                 <div className="py-6 px-8 flex flex-col gap-2">
                     {matchProject ? (
                         <>
-                            <div className="text-color-light-gray text-lg">
+                            <div className="text-color-light-gray text-md sm:text-lg">
                                 Are you sure you want to delete the project?
                             </div>
                             <Button radius="sm" size="sm" color="color-error.4"
@@ -78,7 +78,7 @@ function DeleteContainer() {
                         </>
                     ) : matchUser ? (
                         <>
-                            <div className="text-color-light-gray text-lg">
+                            <div className="text-color-light-gray text-md sm:text-lg">
                                 Are you sure you want to delete the Account?
                             </div>
                             <Button radius="sm" size="sm" color="color-error.4"
@@ -86,14 +86,14 @@ function DeleteContainer() {
                                     type={"button"}
                                     mb={0}
                                     mt={15}
-                                    w={130}
+                                    w={140}
                             >
                                 Delete Account
                             </Button>
                         </>
                     ) : matchComment ? (
                         <>
-                            <div className="text-color-light-gray text-lg">
+                            <div className="text-color-light-gray text-md sm:text-lg">
                                 Are you sure you want to delete the comment?
                             </div>
                             <Button radius="sm" size="sm" color="color-error.4"

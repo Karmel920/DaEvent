@@ -60,9 +60,9 @@ function UpdatePasswordContainer() {
                 <div className="bg-color-dark-light rounded-t-lg py-2 px-3">
                     <div className="flex items-center gap-2">
                         <Link to='/settings'>
-                            <IoMdArrowBack className="text-color-main text-xl cursor-pointer"/>
+                            <IoMdArrowBack className="text-color-main text-lg sm:text-xl cursor-pointer"/>
                         </Link>
-                        <h3 className="text-color-light">EDIT YOUR PASSWORD</h3>
+                        <h3 className="text-color-light text-sm sm:text-base">EDIT YOUR PASSWORD</h3>
                     </div>
                 </div>
                 <div className="">

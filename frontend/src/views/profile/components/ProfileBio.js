@@ -30,16 +30,16 @@ function ProfileBio() {
                 />
             </div>
             <div className="items-center flex flex-col text-color-light">
-                <h3>{profile.full_name}</h3>
-                <p className="text-color-main cursor-pointer">@{profile.username}</p>
+                <h3 className="text-sm md:text-base">{profile.full_name}</h3>
+                <p className="text-color-main cursor-pointer text-sm md:text-base">@{profile.username}</p>
             </div>
-            <div className="mb-10">
-                <h2 className="text-lg text-color-dark-light">ABOUT</h2>
-                <p className="text-color-light-gray">{profile.bio}</p>
+            <div className="md:mb-10 mb-6">
+                <h2 className="md:text-lg text-color-dark-light text-base">ABOUT</h2>
+                <p className="text-color-light-gray text-sm md:text-base">{profile.bio}</p>
             </div>
             <div className="">
                 <div>
-                    <h2 className="text-lg text-color-dark-light mb-2">PROJECTS CREATED BY {profile.username}</h2>
+                    <h2 className="md:text-lg text-base text-color-dark-light mb-2">PROJECTS CREATED BY {profile.username}</h2>
                 </div>
             </div>
         </div>

@@ -68,8 +68,8 @@ function Feed({setTotalHandler}) {
     return (
         <div>
             {projects.map(item =>
-                <div key={item.id} className="bg-color-dark p-6 rounded-xl mb-6">
-                    <div className="flex justify-between items-center text-color-light">
+                <div key={item.id} className="bg-color-dark md:p-6 rounded-xl mb-6 pt-4 pb-3 px-4">
+                    <div className="flex md:justify-between md:items-center text-color-light flex-col md:flex-row">
                         <Link to={`/profile/${item?.host?.id}`}>
                             <div className="flex items-center">
                                 <Avatar src={`${process.env.REACT_APP_API_URL}/images/${item?.host?.avatar}`}
@@ -80,19 +80,19 @@ function Feed({setTotalHandler}) {
                                             'cursor': "pointer", 'position': "static"
                                         }}
                                 />
-                                <span className="text-color-main ml-2 cursor-pointer">@{item?.host?.username}</span>
+                                <span className="text-color-main ml-2 cursor-pointer text-sm md:text-base">@{item?.host?.username}</span>
                             </div>
                         </Link>
                         <div>
-                            <span>{item.timesince} ago</span>
+                            <span className="text-xs md:text-base">{item.timesince} ago</span>
                         </div>
                     </div>
                     <Link to={`/project/${item.id}`}>
-                        <div className="cursor-pointer text-color-light font-medium text-xl mt-4 mb-6 transition">
+                        <div className="cursor-pointer text-color-light font-medium text-lg md:text-xl md:mt-4 md:mb-6 mt-3 mb-3 transition">
                             <p>{item.name}</p>
                         </div>
                     </Link>
-                    <div className="flex justify-between text-color-light border-solid border-color-gray border-t pt-4">
+                    <div className="flex justify-between text-color-light border-solid border-color-gray border-t md:pt-4 pt-2 text-sm md:text-base">
                         <div className="flex gap-3 items-center">
                             <AiOutlineTeam size="2em" className="text-color-main "/>
                             {item.participants_count} Joined

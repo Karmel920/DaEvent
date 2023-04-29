@@ -43,7 +43,7 @@ function Participants() {
         <div className="pt-10 h-[90vh]">
             <div className="h-full w-full rounded-lg overflow-hidden bg-color-dark">
                 <div className="bg-color-dark-light rounded-t-md">
-                    <h2 className="text-color-light py-2 px-4">PARTICIPANTS
+                    <h2 className="text-color-light py-2 px-4 text-sm md:text-base">PARTICIPANTS
                         <span className="ml-1.5 text-color-main">({participantsCount} Joined)</span>
                     </h2>
                 </div>
@@ -75,9 +75,9 @@ function Participants() {
                                 />
                             </Link>
                             <div className="flex-col pl-3">
-                                <p className="text-sm text-color-light-gray">{item.full_name}</p>
+                                <p className="text-xs sm:text-sm text-color-light-gray">{item.full_name}</p>
                                 <Link to={"/profile"}>
-                                    <p className="text-sm text-color-main cursor-pointer">@{item.username}</p>
+                                    <p className="text-xs sm:text-sm text-color-main cursor-pointer">@{item.username}</p>
                                 </Link>
                             </div>
                         </div>

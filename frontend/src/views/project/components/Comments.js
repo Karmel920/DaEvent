@@ -56,10 +56,10 @@ function Comments() {
             <div className="bg-color-bg h-48 overflow-auto">
                 <div className="py-2 px-4">
                     {activities.map(item =>
-                        <div key={item?.id} className="border-solid border-l border-color-gray mb-2">
+                        <div key={item?.id} className="border-solid border-l border-color-gray sm:mb-2 mb-1">
                             <div className="pl-3 py-2 flex flex-col gap-1">
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center">
+                                    <div className="flex sm:items-center flex-col sm:flex-row">
                                         <Link to={`/profile/${item?.user?.id}`}>
                                             <div className="flex leading-normal items-center">
                                                 <Avatar src={`${process.env.REACT_APP_API_URL}/images/${item?.user?.avatar}`}
@@ -70,10 +70,10 @@ function Comments() {
                                                             'cursor': "pointer", 'position': "static"
                                                         }}
                                                 />
-                                                <p className="pl-2 text-sm text-color-main cursor-pointer">@{item?.user?.username}</p>
+                                                <p className="pl-2 sm:text-sm text-xs text-color-main cursor-pointer">@{item?.user?.username}</p>
                                             </div>
                                         </Link>
-                                        <p className="ml-3 text-sm text-color-light-gray">{item?.timesince} ago</p>
+                                        <p className="sm:ml-3 mt-1 sm:mt-0 sm:text-sm text-xs text-color-light-gray">{item?.timesince} ago</p>
                                     </div>
                                     {item?.user?.id === user?.id ? (
                                         <>
@@ -88,7 +88,7 @@ function Comments() {
                                         <></>
                                     )}
                                 </div>
-                                <p className="text-color-light-gray">{item?.body}</p>
+                                <p className="text-color-light-gray text-sm sm:text-base">{item?.body}</p>
                             </div>
                         </div>
                     )}

@@ -48,7 +48,7 @@ function RegisterForm() {
     })
 
     return (
-        <form className="flex flex-col p-3 py-5 gap-3 justify-center" onSubmit={form.onSubmit(submitHandle)}>
+        <form className="flex flex-col md:p-3 p-1 md:py-5 md:gap-3 justify-center" onSubmit={form.onSubmit(submitHandle)}>
             {registerMutation.isError &&
                 <Alert icon={<BiErrorCircle size="1rem"/>} title="Email or username is taken!" color="color-error.6"
                        variant="outline" pt={20}/>}
