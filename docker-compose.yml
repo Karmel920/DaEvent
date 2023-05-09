@@ -19,6 +19,8 @@ services:
       - 8000:8000
     volumes:
       - ./backend:/backend
+      - static_volume:/backend/static
+      - media_volume:/backend/images
     depends_on:
       - psql
 
@@ -33,3 +35,7 @@ services:
     environment:
       - WATCHPACK_POOLING=true
       - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  static_volume:
+  media_volume:
