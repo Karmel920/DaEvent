@@ -38,7 +38,7 @@ class Project(models.Model):
 
     @property
     def timesince(self):
-        return timesince.timesince(self.created)
+        return timesince.timesince(self.updated)
 
     class Meta:
         ordering = ['-updated', '-created']
