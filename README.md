@@ -47,6 +47,14 @@ List the ready features here:
 
 
 ## Usage
+### Setup
+1. Copy .env.sample to .env
+2. Set values in .env file
+### Run 
+  ```
+  docker-compose up --build
+  ```
+### In app
 - Register in the app
 - Login with your account
 - Set your personal info
